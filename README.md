@@ -7,3 +7,9 @@ One of the core features of Velp is its focus on safety and comfort for voluntee
 Velp also provides a gamification aspect to volunteering, encouraging users to complete challenges and earn badges for their volunteer work. This helps to incentivize and motivate volunteers to continue volunteering and helps organizations to attract and retain volunteers.
 
 Overall, Velp is a user-friendly and safe platform that aims to make volunteering accessible and comfortable for everyone. It is a great way to connect with organizations and give back to the community.
+
+### Trello Board: 
+https://trello.com/b/3ZRDd1CB/team-isolation-charity-app
+
+### Excalidraw: 
+https://excalidraw.com/#room=0bafc9a3bc9b6838682a,jA4WGUeF-kKP-WimVKiHhA
