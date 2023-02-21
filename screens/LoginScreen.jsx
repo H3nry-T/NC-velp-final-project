@@ -1,3 +1,5 @@
+import { LoginButton } from "./../components/LoginButton";
+import { LoginForm } from "./../components/LoginForm";
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -7,9 +9,11 @@ import {
   View,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { auth, handleLogIn, handleSignUp } from "../firebase/firebase";
 import { useNavigation } from "@react-navigation/native";
 import { onAuthStateChanged } from "firebase/auth";
+import { handleLogIn } from "../firebase/auth/login";
+import { handleSignUp } from "../firebase/auth/register";
+import { auth } from "../firebase/firebase";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -28,29 +32,19 @@ const LoginScreen = () => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          secureTextEntry
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-        />
-      </View>
+      <LoginForm
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+      />
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => handleLogIn(email, password)}
-        >
-          <Text style={[styles.buttonText]}>Login</Text>
-        </TouchableOpacity>
+        <LoginButton
+          handleLogIn={handleLogIn}
+          email={email}
+          password={password}
+        />
 
         <TouchableOpacity
           style={[styles.button, styles.buttonOutline]}
