@@ -6,14 +6,30 @@ import {
   View,
   SafeAreaView,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import MapView, { Marker } from "react-native-maps";
+import Overlay from "../components/Overlay";
+import ButtonWithOverlay from "../components/ButtonWithOverlay";
 
 const HomeScreen = () => {
-  const { replace } = useNavigation();
+  const { replace, setOptions } = useNavigation();
+  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+
+  React.useLayoutEffect(() => {
+    setOptions({
+      header: () => (
+        <View style={{ flexDirection: "row", paddingTop: 25 }}>
+          <ButtonWithOverlay></ButtonWithOverlay>
+          <TouchableOpacity onPress={() => console.log("Button 2 pressed")}>
+            <Text>List</Text>
+          </TouchableOpacity>
+        </View>
+      ),
+    });
+  }, [setOptions]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -35,7 +51,6 @@ const HomeScreen = () => {
           draggable={true}
         ></Marker>
       </MapView>
-      <SignoutButton replace={replace}></SignoutButton>
     </SafeAreaView>
   );
 };
