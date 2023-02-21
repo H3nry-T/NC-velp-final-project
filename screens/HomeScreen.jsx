@@ -1,11 +1,16 @@
 import { SignoutButton } from "./../components/SignoutButton";
-import { StyleSheet, Text, TouchableOpacity, View, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  SafeAreaView,
+} from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import MapView, { Marker } from "react-native-maps";
-
 
 const HomeScreen = () => {
   const { replace } = useNavigation();
@@ -30,7 +35,7 @@ const HomeScreen = () => {
           draggable={true}
         ></Marker>
       </MapView>
-      <SignoutButton></SignoutButton>
+      <SignoutButton replace={replace}></SignoutButton>
     </SafeAreaView>
   );
 };
