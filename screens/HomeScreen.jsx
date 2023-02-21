@@ -4,14 +4,14 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase";
+import MapView from 'react-native-maps';
 
 const HomeScreen = () => {
   const { replace } = useNavigation();
 
   return (
     <View style={styles.container}>
-      <Text>Email: {auth.currentUser?.email}</Text>
-      <SignoutButton replace={replace} />
+      <MapView style={styles.map} />
     </View>
   );
 };
@@ -38,4 +38,8 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 16,
   },
+  map: {
+    width: '100%',
+    height: '100%',
+    },
 });
