@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { auth, handleLogIn, handleSignUp } from "../firebase";
+import { auth, handleLogIn, handleSignUp } from "../firebase/firebase";
 import { useNavigation } from "@react-navigation/native";
 import { onAuthStateChanged } from "firebase/auth";
 
