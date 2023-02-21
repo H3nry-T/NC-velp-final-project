@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 
 const NavBar = () => {
   return (
-    <View className="flex flex-1 justify-center items-center">
+    <SafeAreaView className="flex flex-row justify-center">
       <Text className="bg-slate-600">NavBar</Text>
-    </View>
+    </SafeAreaView>
   );
 };
 

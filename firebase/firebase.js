@@ -1,4 +1,11 @@
 // Import the functions you need from the SDKs you need
+import { getReactNativePersistence } from "firebase/auth/react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+//======================//
+//== Firebase Imports ==//
+//======================//
+
 import { getApp, getApps, initializeApp } from "firebase/app";
 import {
   getAuth,
@@ -8,8 +15,8 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { getReactNativePersistence } from "firebase/auth/react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
+//---------------------//
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -38,25 +45,3 @@ if (getApps().length < 1) {
   auth = getAuth();
 }
 export { auth, app };
-
-export const handleSignUp = (email, password) => {
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      alert(`you have registered as ${user.email}`);
-    })
-    .catch((err) => {
-      alert(`${err.code} ${err.message}`);
-    });
-};
-
-export const handleLogIn = (email, password) => {
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      alert(`you have logged in as ${user.email}`);
-    })
-    .catch((err) => {
-      alert(`${err.code} ${err.message}`);
-    });
-};

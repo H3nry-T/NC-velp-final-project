@@ -1,3 +1,4 @@
+import { SignoutButton } from "./../components/SignoutButton";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -6,22 +7,11 @@ import { auth } from "../firebase/firebase";
 
 const HomeScreen = () => {
   const { replace } = useNavigation();
-  const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        alert("signed out successful!");
-        replace("Login");
-      })
-      .catch((err) => {
-        alert(`${err.message}`);
-      });
-  };
+
   return (
     <View style={styles.container}>
       <Text>Email: {auth.currentUser?.email}</Text>
-      <TouchableOpacity style={styles.button} onPress={handleSignOut}>
-        <Text style={styles.buttonText}>Sign Out</Text>
-      </TouchableOpacity>
+      <SignoutButton replace={replace} />
     </View>
   );
 };
