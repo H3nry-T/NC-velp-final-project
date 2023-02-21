@@ -1,18 +1,15 @@
+import { RegisterButton } from "../components/RegisterButton";
 import { LoginButton } from "./../components/LoginButton";
 import { LoginForm } from "./../components/LoginForm";
 import {
   KeyboardAvoidingView,
+  SafeAreaView,
   StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { onAuthStateChanged } from "firebase/auth";
-import { handleLogIn } from "../firebase/auth/login";
-import { handleSignUp } from "../firebase/auth/register";
 import { auth } from "../firebase/firebase";
 
 const LoginScreen = () => {
@@ -26,33 +23,24 @@ const LoginScreen = () => {
         replace("Home");
       }
     });
-
     return unsubscribe;
   }, []);
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <LoginForm
-        email={email}
-        setEmail={setEmail}
-        password={password}
-        setPassword={setPassword}
-      />
+    <KeyboardAvoidingView behavior="padding">
+      <SafeAreaView>
+        <View className=" justify-center items-center h-full w-full">
+          <LoginForm
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+          />
 
-      <View style={styles.buttonContainer}>
-        <LoginButton
-          handleLogIn={handleLogIn}
-          email={email}
-          password={password}
-        />
-
-        <TouchableOpacity
-          style={[styles.button, styles.buttonOutline]}
-          onPress={() => handleSignUp(email, password)}
-        >
-          <Text style={[styles.buttonOutlineText]}>Register</Text>
-        </TouchableOpacity>
-      </View>
+          <LoginButton email={email} password={password} />
+          <RegisterButton email={email} password={password} />
+        </View>
+      </SafeAreaView>
     </KeyboardAvoidingView>
   );
 };
