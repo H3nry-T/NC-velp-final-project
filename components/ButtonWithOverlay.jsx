@@ -15,8 +15,8 @@ const ButtonWithOverlay = () => {
 
   return (
     <View>
-      <Button title="Open Overlay" onPress={handleOpenOverlay} />
-      <Overlay isVisible={isOverlayVisible} message="Hello, World!" onClose={handleCloseOverlay} />
+      <Button title="Menu" onPress={handleOpenOverlay} />
+      <Overlay isVisible={isOverlayVisible} onClose={handleCloseOverlay} />
     </View>
   );
 };
