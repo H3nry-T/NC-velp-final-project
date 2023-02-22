@@ -27,7 +27,7 @@ const LoginScreen = () => {
   }, []);
 
   return (
-    <KeyboardAvoidingView behavior="padding">
+    // <KeyboardAvoidingView behavior="padding">
       <SafeAreaView>
         <View className=" justify-center items-center h-full w-full">
           <LoginForm
@@ -41,7 +41,7 @@ const LoginScreen = () => {
           <RegisterButton email={email} password={password} />
         </View>
       </SafeAreaView>
-    </KeyboardAvoidingView>
+    // </KeyboardAvoidingView>
   );
 };
 
