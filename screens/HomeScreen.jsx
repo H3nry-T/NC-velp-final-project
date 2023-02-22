@@ -11,8 +11,8 @@ import { useNavigation } from "@react-navigation/native";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import MapView, { Marker } from "react-native-maps";
-import Overlay from "../components/Overlay";
 import ButtonWithOverlay from "../components/ButtonWithOverlay";
+import List from "../components/List";
 
 const HomeScreen = () => {
   const { replace, setOptions } = useNavigation();
@@ -23,9 +23,7 @@ const HomeScreen = () => {
       header: () => (
         <View style={{ flexDirection: "row", paddingTop: 25 }}>
           <ButtonWithOverlay></ButtonWithOverlay>
-          <TouchableOpacity onPress={() => console.log("Button 2 pressed")}>
-            <Text>List</Text>
-          </TouchableOpacity>
+          
         </View>
       ),
     });
@@ -51,6 +49,7 @@ const HomeScreen = () => {
           draggable={true}
         ></Marker>
       </MapView>
+      <List />
     </SafeAreaView>
   );
 };
