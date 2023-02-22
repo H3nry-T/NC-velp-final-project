@@ -12,10 +12,13 @@ export default function List() {
 
   useEffect(() => {
     // getTestEvents().then((data) => {
-    //   setTestEventsData(data);
-    console.log(getTestEvents());
-    // });
-  }, []);
+    async function getData() {
+      const results = await getTestEvents();
+      setTestEventsData(results);
+      console.log(testEventsData);
+    }
+    getData();
+  }, [showList]);
 
   return (
     <View>

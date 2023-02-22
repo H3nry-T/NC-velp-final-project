@@ -4,16 +4,18 @@ import { getFirestore, collection, getDocs } from "firebase/firestore";
 const dataBase = getFirestore();
 const testEventsCollection = collection(dataBase, "test_events");
 
-export const getTestEvents = () => {
-  getDocs(testEventsCollection)
-    .then((snapshot) => {
-      const testEvents = snapshot.docs.map((doc) => {
-        return doc.data();
-      });
-      //   console.log(test);
-      return testEvents;
-    })
-    .catch((err) => {
-      console.error(err);
+export const getTestEvents = async () => {
+  try {
+    const snapshot = await getDocs(testEventsCollection);
+
+    const testEvents = [];
+    snapshot.docs.forEach((doc) => {
+      const tempData = doc.data();
+      testEvents.push(tempData);
     });
+    // console.log(testEvents);
+    return testEvents;
+  } catch (error) {
+    console.error(error);
+  }
 };
