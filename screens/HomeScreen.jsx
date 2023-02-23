@@ -12,7 +12,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import MapView, { Marker } from "react-native-maps";
 import ButtonWithOverlay from "../components/ButtonWithOverlay";
-import List from "../components/List";
+import ListButton from "../components/ListButton";
 
 const HomeScreen = () => {
   const { replace, setOptions } = useNavigation();
@@ -49,7 +49,7 @@ const HomeScreen = () => {
           draggable={true}
         ></Marker>
       </MapView>
-      <List />
+      <ListButton />
     </SafeAreaView>
   );
 };
