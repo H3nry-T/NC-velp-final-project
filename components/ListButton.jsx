@@ -1,4 +1,11 @@
-import { Text, TouchableOpacity, View, Modal, Pressable } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  Modal,
+  Pressable,
+  Touchable,
+} from "react-native";
 import { useState, useEffect } from "react";
 import { getTestEvents } from "../firebase/read";
 import EventCard from "./EventCard";
@@ -55,11 +62,12 @@ export default function List() {
         </TouchableOpacity>
       </Modal>
 
-      <View>
+      <View className="flex-row">
+        <TouchableOpacity>
+          <Text>Add Event</Text>
+        </TouchableOpacity>
         <TouchableOpacity onPress={toggleEventList} className="pb-8">
-          <View className="flex-row">
-            <Text className="text-2xl">List</Text>
-          </View>
+          <Text className="text-2xl">List</Text>
         </TouchableOpacity>
       </View>
     </View>
