@@ -24,7 +24,6 @@ export default function App() {
   // I want a navbar to appear here if the user is logged in!
   return (
     <>
-      {authenticated === true ? <NavBar /> : ""}
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
@@ -32,11 +31,9 @@ export default function App() {
             name="Login"
             component={LoginScreen}
           />
-         
+
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Map" component={Map} />
-          
-          
         </Stack.Navigator>
       </NavigationContainer>
     </>
