@@ -4,25 +4,25 @@ import React from "react";
 const AddEventScreen = () => {
   return (
     <View>
-      <Text></Text>
+      <Text>address</Text>
       <TextInput></TextInput>
-      <Text></Text>
+      <Text>charity_id</Text>
       <TextInput></TextInput>
-      <Text></Text>
+      <Text>date_time</Text>
       <TextInput></TextInput>
-      <Text></Text>
+      <Text>description</Text>
       <TextInput></TextInput>
-      <Text></Text>
+      <Text>email</Text>
       <TextInput></TextInput>
-      <Text></Text>
+      <Text>event_count</Text>
       <TextInput></TextInput>
-      <Text></Text>
+      <Text>event_name</Text>
       <TextInput></TextInput>
-      <Text></Text>
+      <Text>organisation_name</Text>
+      <TextInput>phone</TextInput>
+      <Text>volunteer_needed</Text>
       <TextInput></TextInput>
-      <Text></Text>
-      <TextInput></TextInput>
-      <Text></Text>
+      <Text>website</Text>
       <TextInput></TextInput>
     </View>
   );
