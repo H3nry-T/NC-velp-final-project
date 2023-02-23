@@ -55,32 +55,17 @@ if (getApps().length < 1) {
 
 const db = getFirestore(app);
 
-const firebaseTest = () => {
-  getDocs(collection(db, "test_markers")).then((querySnapshot) => {
-    return querySnapshot.docs.map((doc) => {
-      console.log(doc.id, doc.data());
-    });
+async function firebaseTest() {
+  let myArray = [];
+  const querySnapshot = await getDocs(collection(db, "test_markers"));
+  querySnapshot.forEach((doc) => {
+    myArray.push({id: doc.id, data: doc.data()});
   });
-};
-
-firebaseTest();
-
-export function dataFromFB () {
-  let myData = []
-  const db = getFirestore(app);
-
-  const firebaseTest = () => {
-    getDocs(collection(db, "test_markers")).then((querySnapshot) => {
-      return querySnapshot.docs.map((doc) => {
-        myData.push({"id": doc.id, "data": {...doc.data()}})
-      });
-    });
-  };
-  
-  firebaseTest();
-  return myData
+  return myArray;
 }
 
-const dataTest = dataFromFB()
+firebaseTest().then((result) => {
+  //console.log(result);
+});
 
-export { auth, app, db, dataTest };
+export { auth, app, db };

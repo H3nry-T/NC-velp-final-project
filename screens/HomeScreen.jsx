@@ -12,6 +12,7 @@ import { db, dataFromFB, dataTest } from "../firebase/firebase";
 import MapView, { Marker } from "react-native-maps";
 import ButtonWithOverlay from "../components/ButtonWithOverlay";
 import List from "../components/List";
+import {getEventLocations} from "../firebase/read"
 
 
 const HomeScreen = () => {
@@ -28,9 +29,8 @@ const HomeScreen = () => {
     });
   }, [setOptions]);
 
+  getEventLocations()
 
-console.log("check" , dataTest)
-  
 
   return (
     <SafeAreaView style={styles.container}>
