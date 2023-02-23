@@ -19,3 +19,6 @@ export const getTestEvents = async () => {
     console.error(error);
   }
 };
+
+
+export {testEventsCollection};
