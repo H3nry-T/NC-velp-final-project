@@ -12,7 +12,8 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import DatePicker from "react-native-datepicker";
+import DatePicker from "@react-native-community/datetimepicker"
+
 import {
     getFirestore,
     collection,
@@ -224,6 +225,7 @@ export default function VolunteerSignupScreen() {
                                 format="DD-MM-YYYY"
                                 minDate="1900-01-01"
                                 maxDate={new Date()}
+                                value={new Date()}
                                 confirmBtnText="Confirm"
                                 cancelBtnText="Cancel"
                                 onDateChange={(date) => {
