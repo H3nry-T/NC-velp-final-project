@@ -9,11 +9,13 @@ import {
 import { useState, useEffect } from "react";
 import { getTestEvents } from "../firebase/read";
 import EventCard from "./EventCard";
+import { useNavigation } from "@react-navigation/native";
 
 export default function List() {
   const [showList, setShowList] = useState(false);
   let [testEventsData, setTestEventsData] = useState([]);
   const [testEventCards, setTestEventCards] = useState([]);
+  const navigation = useNavigation();
 
   function toggleEventList() {
     setShowList(!showList);
@@ -60,12 +62,19 @@ export default function List() {
             Close
           </Text>
         </TouchableOpacity>
+        <TouchableOpacity className=" justify-end">
+          <Text
+            onPress={() => {
+              return navigation.navigate("AddEvent");
+            }}
+            className="text-center px-10 py-7 bg-sky-800 rounded-xl mb-5"
+          >
+            Add Event
+          </Text>
+        </TouchableOpacity>
       </Modal>
 
       <View className="flex-row">
-        <TouchableOpacity>
-          <Text>Add Event</Text>
-        </TouchableOpacity>
         <TouchableOpacity onPress={toggleEventList} className="pb-8">
           <Text className="text-2xl">List</Text>
         </TouchableOpacity>
