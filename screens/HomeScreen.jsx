@@ -8,11 +8,11 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase/firebase";
+import { db, dataFromFB, dataTest } from "../firebase/firebase";
 import MapView, { Marker } from "react-native-maps";
 import ButtonWithOverlay from "../components/ButtonWithOverlay";
 import List from "../components/List";
+
 
 const HomeScreen = () => {
   const { replace, setOptions } = useNavigation();
@@ -23,11 +23,14 @@ const HomeScreen = () => {
       header: () => (
         <View style={{ flexDirection: "row", paddingTop: 25 }}>
           <ButtonWithOverlay></ButtonWithOverlay>
-          
         </View>
       ),
     });
   }, [setOptions]);
+
+
+console.log("check" , dataTest)
+  
 
   return (
     <SafeAreaView style={styles.container}>

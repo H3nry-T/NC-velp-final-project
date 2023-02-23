@@ -15,6 +15,14 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  getDatabase,
+  doc,
+} from "firebase/firestore";
 
 //---------------------//
 
@@ -44,4 +52,35 @@ if (getApps().length < 1) {
   app = getApp();
   auth = getAuth();
 }
-export { auth, app };
+
+const db = getFirestore(app);
+
+const firebaseTest = () => {
+  getDocs(collection(db, "test_markers")).then((querySnapshot) => {
+    return querySnapshot.docs.map((doc) => {
+      console.log(doc.id, doc.data());
+    });
+  });
+};
+
+firebaseTest();
+
+export function dataFromFB () {
+  let myData = []
+  const db = getFirestore(app);
+
+  const firebaseTest = () => {
+    getDocs(collection(db, "test_markers")).then((querySnapshot) => {
+      return querySnapshot.docs.map((doc) => {
+        myData.push({"id": doc.id, "data": {...doc.data()}})
+      });
+    });
+  };
+  
+  firebaseTest();
+  return myData
+}
+
+const dataTest = dataFromFB()
+
+export { auth, app, db, dataTest };
