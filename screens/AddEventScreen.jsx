@@ -4,16 +4,29 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
+  Touchable,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FormInputFieldGeneric from "../components/FormInputFieldGeneric";
-
+import DateTimePicker from "@react-native-community/datetimepicker";
+import RNDateTimePicker from "@react-native-community/datetimepicker";
 const AddEventScreen = () => {
+  const [showDateTimePicker, setShowDateTimePicker] = useState(false);
+  useEffect(() => {
+    // setShowDateTimePicker(false);
+  }, [showDateTimePicker]);
   return (
     <ScrollView className="flex-1">
       <FormInputFieldGeneric label={"address"} />
       <FormInputFieldGeneric label={"charity id"} />
-      <FormInputFieldGeneric label={"date time"} />
+      <Text className="ml-6 mb-1">date time</Text>
+      <TouchableOpacity
+        className="bg-white rounded-full w-11/12 mx-auto h-7 "
+        onPress={() => {
+          setShowDateTimePicker(!showDateTimePicker);
+        }}
+      ></TouchableOpacity>
+      {showDateTimePicker && <RNDateTimePicker value={new Date()} />}
       <FormInputFieldGeneric label={"description"} />
       <FormInputFieldGeneric label={"email"} />
       <FormInputFieldGeneric label={"event_count"} />
