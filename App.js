@@ -10,7 +10,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import SignupScreen from "./screens/CharitySignupScreen";
 import VolunteerSignupScreen from "./screens/VolunteerSignupScreen";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Stack = createNativeStackNavigator();
 

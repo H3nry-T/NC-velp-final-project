@@ -10,10 +10,9 @@ import {
     TouchableOpacity,
     Pressable,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 
-export default function SignupScreen({navigation}) {
+export default function SignupScreen({ navigation }) {
     const [isCharity, setIsCharity] = useState(false);
     const [charityFormData, setCharityFormData] = useState({
         reg_charity_number: null,
@@ -22,6 +21,7 @@ export default function SignupScreen({navigation}) {
         phone: null,
         address_post_code: null,
         password: null,
+        password_again: null
     });
 
     return (
@@ -35,7 +35,6 @@ export default function SignupScreen({navigation}) {
                 <TouchableOpacity
                     className="w-1/2"
                     onPress={() => navigation.navigate("Volunteer Signup Form")}
-                    
                 >
                     <View className="flex-1 flex justify-center items-center border border-gray-400 transform scale-95">
                         <Text className="opacity-50">Volunteer</Text>
@@ -49,6 +48,7 @@ export default function SignupScreen({navigation}) {
                         <TextInput
                             className="p-3 border rounded"
                             placeholder="Charity Number"
+                            keyboardType="numeric"
                             value={charityFormData.reg_charity_number}
                             onChangeText={(number) => {
                                 setCharityFormData({
@@ -92,6 +92,7 @@ export default function SignupScreen({navigation}) {
                             className="p-3 border rounded"
                             placeholder="Telephone"
                             value={charityFormData.phone}
+                            keyboardType="numeric"
                             onChangeText={(number) => {
                                 setCharityFormData({
                                     ...charityFormData,
@@ -118,8 +119,9 @@ export default function SignupScreen({navigation}) {
                         <Text className="text-xl mb-2">Password</Text>
                         <TextInput
                             className="p-3 border rounded"
-                            placeholder="Charity Number"
+                            placeholder="Please enter password"
                             value={charityFormData.password}
+                            secureTextEntry={true}
                             onChangeText={(text) => {
                                 setCharityFormData({
                                     ...charityFormData,
@@ -132,12 +134,13 @@ export default function SignupScreen({navigation}) {
                         <Text className="text-xl mb-2">Repeat Password</Text>
                         <TextInput
                             className="p-3 border rounded"
-                            placeholder="Charity Number"
-                            value={charityFormData.password}
+                            placeholder="Please re-enter password"
+                            value={charityFormData.password_again}
+                            secureTextEntry={true}
                             onChangeText={(text) => {
                                 setCharityFormData({
                                     ...charityFormData,
-                                    password: text,
+                                    password_again: text,
                                 });
                             }}
                         ></TextInput>
@@ -145,7 +148,7 @@ export default function SignupScreen({navigation}) {
                 </ScrollView>
             </View>
             <View className="absolute bottom-0 left-0 right-0 mb-5">
-                <Button title="Submit" className="w-full" />
+                <Button title="Submit" className="w-full"/>
             </View>
         </SafeAreaView>
     );
