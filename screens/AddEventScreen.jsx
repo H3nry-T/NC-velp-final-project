@@ -12,9 +12,6 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 const AddEventScreen = () => {
   const [showDateTimePicker, setShowDateTimePicker] = useState(false);
-  useEffect(() => {
-    // setShowDateTimePicker(false);
-  }, [showDateTimePicker]);
   return (
     <ScrollView className="flex-1">
       <FormInputFieldGeneric label={"address"} />
