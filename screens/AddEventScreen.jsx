@@ -15,7 +15,8 @@ const AddEventScreen = () => {
   const [showDateTimePicker, setShowDateTimePicker] = useState(false);
  //Temp data inside to test, prior to getting data from actual form
   const [formData, setFormData] = useState({
-    address: "0 Nowhere Lane SG01 0BB",
+    address: "0 Nowhere Lane",
+    postcode: "SG01 0BB",
     charity_id: 520162,
     date_time: '31 January 2024 at 02:01:00 UTC',
     description: 'Volunteers needed for vampiric blood bank drive',
