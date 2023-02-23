@@ -1,4 +1,5 @@
 import {db} from './firebase'
+import axios from "axios"
 import {
     getFirestore,
     collection,
@@ -16,9 +17,13 @@ async function getEventLocations() {
     });
     return myArray;
   }
-  
-  getEventLocations().then((result) => {
-    console.log(result);
-  });
+
+export const findLatAndLong = (postcode) => {
+    return axios
+        .get(`http://postcodes.io/postcodes/m11rn`)
+        .then(({data}) => {
+           return (data.result)
+        })
+}
 
 export { getEventLocations }

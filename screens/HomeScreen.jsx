@@ -6,19 +6,21 @@ import {
   View,
   SafeAreaView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { db, dataFromFB, dataTest } from "../firebase/firebase";
 import MapView, { Marker } from "react-native-maps";
 import ButtonWithOverlay from "../components/ButtonWithOverlay";
 import List from "../components/List";
-import {getEventLocations} from "../firebase/read"
+import {getEventLocations, findLatAndLong} from "../firebase/read"
 
 
 const HomeScreen = () => {
   const { replace, setOptions } = useNavigation();
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [events, setEvents] = useState([]);
+  const [eventsLat, setEventsLat] = useState([])
+  const [eventsLong, setEventsLong] = useState([]);
 
   React.useLayoutEffect(() => {
     setOptions({
@@ -31,11 +33,16 @@ const HomeScreen = () => {
     });
     getEventLocations().then((data) => {
      setEvents(data)
-    });
+     return findLatAndLong()
+    })
+    .then((results)=>{
+      console.log(results)
+    })
+    
   }, [setOptions]);
 
 
-console.log(events);
+
   return (
     <SafeAreaView style={styles.container}>
       <MapView
@@ -49,6 +56,7 @@ console.log(events);
       >
         {
           events.map((event) => {
+            console.log(1)
             return( <Marker key={event.id}
             coordinate={{
               latitude: event.data.latitude,
@@ -67,6 +75,7 @@ console.log(events);
             longitude: 0.1276,
           }}
           pinColor="red"
+          title="Start location"
           draggable={true}
         ></Marker>
 
