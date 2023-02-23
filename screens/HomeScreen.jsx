@@ -18,31 +18,49 @@ import {getEventLocations} from "../firebase/read"
 const HomeScreen = () => {
   const { replace, setOptions } = useNavigation();
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+  const [events, setEvents] = useState([]);
 
   React.useLayoutEffect(() => {
     setOptions({
       header: () => (
         <View style={{ flexDirection: "row", paddingTop: 25 }}>
           <ButtonWithOverlay></ButtonWithOverlay>
+          
         </View>
       ),
     });
+    getEventLocations().then((data) => {
+     setEvents(data)
+    });
   }, [setOptions]);
 
-  getEventLocations()
 
-
+console.log(events);
   return (
     <SafeAreaView style={styles.container}>
       <MapView
         style={styles.map}
         initialRegion={{
           latitude: 51.50572,
-          longitude: 0.1276,
+           longitude: 0.1276,
           latitudeDelta: 0.05,
           longitudeDelta: 0.05,
         }}
       >
+        {
+          events.map((event) => {
+            return( <Marker key={event.id}
+            coordinate={{
+              latitude: event.data.latitude,
+              longitude: event.data.longitude,
+            }}
+            pinColor="gold"            
+            title={event.data.title}
+
+          ></Marker>)
+        })
+        }
+        
         <Marker
           coordinate={{
             latitude: 51.50572,
@@ -51,7 +69,9 @@ const HomeScreen = () => {
           pinColor="red"
           draggable={true}
         ></Marker>
+
       </MapView>
+      
       <List />
     </SafeAreaView>
   );
