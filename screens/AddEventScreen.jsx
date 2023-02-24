@@ -1,27 +1,13 @@
-import {
-  View,
-  Text,
-  TextInput,
-  ScrollView,
-  TouchableOpacity,
-  Touchable,
-} from "react-native";
-import React, { useEffect, useState } from "react";
+import { FormDateTimePicker } from "./../components/FormDateTimePicker";
+import { Text, ScrollView, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
 import { createNewTestEvent } from "../firebase/create";
 import FormInputFieldGeneric from "../components/FormInputFieldGeneric";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { serverTimestamp, Timestamp } from "firebase/firestore";
-const AddEventScreen = () => {
-  //ALL
-  const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState("date");
-  const [show, setShow] = useState(false);
-  const [text, setText] = useState("Empty");
 
+const AddEventScreen = () => {
   //Temp data inside to test, prior to getting data from actual form
   const [formData, setFormData] = useState({
     address: "0 Nowhere Lane",
-    postcode: "SG01 0BB",
     charity_id: 520162,
     date_time: "31 January 2024 at 02:01:00 UTC",
     description: "Volunteers needed for vampiric blood bank drive",
@@ -30,22 +16,12 @@ const AddEventScreen = () => {
     event_name: "Feed our Benefactors",
     organisation_name: "13TH BEBINGTON (ST.BARNABAS) SCOUT GROUP",
     phone: "0151000000",
-    volunteers_needed: 8,
+    postcode: "SG01 0BB",
+    volunteers: [],
+    volunteer_needed: 9,
     website: "http://13thbeningtonscoutgroup.org.uk",
   });
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === "ios");
-    setDate(currentDate);
-    let tempDate = new Date(currentDate);
-    // console.log(tempDate.toLocaleString());
-    setText(tempDate.toLocaleString("en-GB"));
-  };
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
   // need to add a check to make sure fields are valid & disable button + clear fields
   function submitForm() {
     createNewTestEvent(formData);
@@ -53,37 +29,24 @@ const AddEventScreen = () => {
 
   return (
     <ScrollView className="flex-1">
-      <FormInputFieldGeneric label={"address"} />
-      <FormInputFieldGeneric label={"postcode"} />
-      <FormInputFieldGeneric label={"charity id"} />
-      <Text className="ml-6 mb-1">date time</Text>
-      <TouchableOpacity
-        className="bg-white rounded-full w-11/12 mx-auto h-7 justify-center pl-1"
-        onPress={() => {
-          showMode("datetime");
-        }}
-      >
-        <Text>{text}</Text>
-      </TouchableOpacity>
-      {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode={mode}
-          is24Hour={true}
-          display="default"
-          onChange={onChange}
-          onCancel={() => setShow(false)}
-        />
-      )}
-      <FormInputFieldGeneric label={"description"} />
-      <FormInputFieldGeneric label={"email"} />
-      <FormInputFieldGeneric label={"event_count"} />
-      <FormInputFieldGeneric label={"event_name"} />
-      <FormInputFieldGeneric label={"phone"} />
-      <FormInputFieldGeneric label={"organisation_name"} />
-      <FormInputFieldGeneric label={"volunteer_needed"} />
-      <FormInputFieldGeneric label={"website"} />
+      <FormInputFieldGeneric label={"address"} setFormData={setFormData} />
+      <FormInputFieldGeneric label={"postcode"} setFormData={setFormData} />
+      <FormInputFieldGeneric label={"charity id"} setFormData={setFormData} />
+      <FormDateTimePicker setFormData={setFormData} />
+      <FormInputFieldGeneric label={"description"} setFormData={setFormData} />
+      <FormInputFieldGeneric label={"email"} setFormData={setFormData} />
+      <FormInputFieldGeneric label={"event_count"} setFormData={setFormData} />
+      <FormInputFieldGeneric label={"event_name"} setFormData={setFormData} />
+      <FormInputFieldGeneric label={"phone"} setFormData={setFormData} />
+      <FormInputFieldGeneric
+        label={"organisation name"}
+        setFormData={setFormData}
+      />
+      <FormInputFieldGeneric
+        label={"volunteer needed"}
+        setFormData={setFormData}
+      />
+      <FormInputFieldGeneric label={"website"} setFormData={setFormData} />
       <TouchableOpacity
         className="self-center p-2 rounded-full bg-sky-400 w-1/3 m-5"
         onPress={() => submitForm()}
