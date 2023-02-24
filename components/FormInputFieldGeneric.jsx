@@ -7,7 +7,7 @@ const FormInputFieldGeneric = ({ label, formDataField, onChange }) => {
       <Text className="ml-6 mb-1">{label}</Text>
       <TextInput
         className="bg-white rounded-full w-11/12 mx-auto"
-        value={formDataField}
+        value={formDataField.toString()}
         onChangeText={(text) => {
           onChange(text);
         }}

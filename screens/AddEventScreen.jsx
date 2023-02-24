@@ -3,40 +3,70 @@ import { Text, ScrollView, TouchableOpacity, Alert } from "react-native";
 import React, { useState } from "react";
 import { createNewTestEvent } from "../firebase/create";
 import FormInputFieldGeneric from "../components/FormInputFieldGeneric";
+import { useNavigation } from "@react-navigation/native";
+import { Timestamp } from "firebase/firestore";
 
 const AddEventScreen = () => {
   //Temp data inside to test, prior to getting data from actual form
   const [formData, setFormData] = useState({
-    address: "",
+    address: "99 bonso tree street",
     charity_id: 520162,
-    date_time: "",
-    description: "",
-    email: "",
-    event_count: 0,
-    event_name: "",
-    organisation_name: "",
-    phone: "",
-    postcode: "NE10 8YA",
+    date_time: new Timestamp(),
+    description: "help me plant trees 🎄",
+    email: "tree@gmail.com",
+    event_count: 1,
+    event_name: "🌲 helping !",
+    organisation_name: "treetop",
+    phone: "123456789",
+    postcode: "BN13 1HZ",
     volunteers: [],
-    volunteer_needed: 9,
-    website: "",
+    volunteer_needed: 2,
+    website: "https://treetopwebsite.com/volunteering",
   });
+  const navigation = useNavigation();
 
-  // need to add a check to make sure fields are valid & disable button + clear fields
+  function handleUpdateFormDataOnClientSide(fieldToUpdate) {
+    //Make form data ready to be sent off at submitForm()
+
+    //THIS FUNCTION IS CALLED INSIDE OF FormDateTimePicker AS "onChange".
+    return (formInputFieldText) => {
+      let dataToInsert = formInputFieldText;
+      if (
+        fieldToUpdate === "charity_id" ||
+        fieldToUpdate === "event_count" ||
+        fieldToUpdate === "volunteer_needed"
+      ) {
+        if (dataToInsert !== "") {
+          dataToInsert = parseInt(formInputFieldText);
+        }
+      }
+      setFormData({ ...formData, [fieldToUpdate]: dataToInsert });
+    };
+  }
+
+  function checkIfStringCannotBeInteger(string) {
+    if (!isNaN(parseInt(string))) return false;
+    else return true;
+  }
+
   function submitForm() {
-    if (Object.keys(formData).length < 1) {
-      console.log("cannot send the form");
-      alert("not sending the form :(");
+    /* need to add a check to make sure fields
+     are valid & disable button + clear fields */
+    // console.log(formData);
+    // console.log(checkIfStringCannotBeInteger(formData["event_count"]));
+    if (
+      Object.values(formData).some((value) => value === "") ||
+      checkIfStringCannotBeInteger(formData["charity_id"]) ||
+      checkIfStringCannotBeInteger(formData["event_count"]) ||
+      checkIfStringCannotBeInteger(formData["volunteer_needed"])
+    ) {
+      alert("form invalid");
     } else {
       console.log("sent the form!");
+      alert("event created!");
       createNewTestEvent(formData);
+      navigation.replace("Home");
     }
-  }
-  function handleUpdateFormDataOnClientSide(fieldToUpdate) {
-    return (formInputFieldData) => {
-      console.log(formInputFieldData);
-      setFormData({ ...formData, [fieldToUpdate]: formInputFieldData });
-    };
   }
 
   return (
@@ -57,9 +87,9 @@ const AddEventScreen = () => {
         onChange={handleUpdateFormDataOnClientSide("charity_id")}
       />
       <FormDateTimePicker
-        label={"Date & Time"}
+        label={"Date & Time:"}
         formDataField={formData.charity_id}
-        onChange={handleUpdateFormDataOnClientSide("charity_id")}
+        onChange={handleUpdateFormDataOnClientSide("date_time")}
       />
       <FormInputFieldGeneric
         label={"description"}
@@ -72,12 +102,12 @@ const AddEventScreen = () => {
         onChange={handleUpdateFormDataOnClientSide("email")}
       />
       <FormInputFieldGeneric
-        label={"event_count"}
+        label={"event count"}
         formDataField={formData.event_count}
         onChange={handleUpdateFormDataOnClientSide("event_count")}
       />
       <FormInputFieldGeneric
-        label={"event_name"}
+        label={"event name"}
         formDataField={formData.event_name}
         onChange={handleUpdateFormDataOnClientSide("event_name")}
       />
@@ -92,12 +122,12 @@ const AddEventScreen = () => {
         onChange={handleUpdateFormDataOnClientSide("organisation_name")}
       />
       <FormInputFieldGeneric
-        label={"volunteer needed"}
+        label={"number of volunteers needed"}
         formDataField={formData.volunteer_needed}
         onChange={handleUpdateFormDataOnClientSide("volunteer_needed")}
       />
       <FormInputFieldGeneric
-        label={"website"}
+        label={"website url"}
         formDataField={formData.website}
         onChange={handleUpdateFormDataOnClientSide("website")}
       />

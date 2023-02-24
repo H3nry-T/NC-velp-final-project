@@ -18,11 +18,14 @@ export function FormDateTimePicker({ label, formDataField, onChange }) {
     setShow(Platform.OS === "ios");
     setDate(currentDate);
     let tempDate = new Date(currentDate);
-    // console.log(tempDate.toLocaleString());
+    //sets the text above the input field
     setText(tempDate.toLocaleString("en-GB"));
 
+    onChange(tempDate);
+
+    //actually sets the form data with a firebase timestamp
     const firebaseTimestamp = new Timestamp(currentDate);
-    //set to state parent state. the parent state will be pushed to the database soon
+    console.log(JSON.stringify(firebaseTimestamp));
   };
   const showMode = (currentMode) => {
     setShow(true);
@@ -31,7 +34,9 @@ export function FormDateTimePicker({ label, formDataField, onChange }) {
 
   return (
     <>
-      <Text className="ml-6 mb-1">date time: {text}</Text>
+      <Text className="ml-6 mb-1">
+        {label} {text}
+      </Text>
       <View className="flex-row flex-start justify-center w-full">
         <TouchableOpacity
           className="bg-white rounded-full w-1/12 mx-2 justify-center items-center"
