@@ -55,17 +55,4 @@ if (getApps().length < 1) {
 
 const db = getFirestore(app);
 
-async function firebaseTest() {
-  let myArray = [];
-  const querySnapshot = await getDocs(collection(db, "test_markers"));
-  querySnapshot.forEach((doc) => {
-    myArray.push({id: doc.id, data: doc.data()});
-  });
-  return myArray;
-}
-
-firebaseTest().then((result) => {
-  //console.log(result);
-});
-
 export { auth, app, db };
