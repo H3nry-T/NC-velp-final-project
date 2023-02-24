@@ -1,29 +1,34 @@
 import { FormDateTimePicker } from "./../components/FormDateTimePicker";
 import { Text, ScrollView, TouchableOpacity, Alert } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createNewTestEvent } from "../firebase/create";
 import FormInputFieldGeneric from "../components/FormInputFieldGeneric";
 import { useNavigation } from "@react-navigation/native";
 import { Timestamp } from "firebase/firestore";
-
+import { auth } from "../firebase/firebase";
+//If a charity is signed in use auth.currentUser.uid for charity_id
 const AddEventScreen = () => {
   //Temp data inside to test, prior to getting data from actual form
   const [formData, setFormData] = useState({
-    address: "321 Pine Street",
-    charity_id: 456789,
+    address: "90 loco way",
+    charity_id: 1,
     date_time: new Timestamp(),
-    description: "Holiday toy selling",
-    email: "toys@example.com",
+    description: "help lay out the tracks",
+    email: "TrainStation@example.com",
     event_count: 1,
-    event_name: "Toy Drive",
-    organisation_name: "Holiday Helpers",
-    phone: "555-555-5555",
-    postcode: "SA10 6FN",
+    event_name: "Railway construction 👷‍♂️",
+    organisation_name: "line foster & co",
+    phone: "62124151",
+    postcode: "TS10 2DZ",
     volunteers: [],
-    volunteer_needed: 11,
-    website: "https://holidayhelpers.com",
+    volunteer_needed: 1,
+    website: "https://TrainStation.com/volunteering",
   });
   const navigation = useNavigation();
+
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
 
   function handleUpdateFormDataOnClientSide(fieldToUpdate) {
     //Make form data ready to be sent off at submitForm()

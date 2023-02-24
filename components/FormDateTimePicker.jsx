@@ -21,11 +21,8 @@ export function FormDateTimePicker({ label, formDataField, onChange }) {
     //sets the text above the input field
     setText(tempDate.toLocaleString("en-GB"));
 
-    onChange(tempDate);
-
-    //actually sets the form data with a firebase timestamp
-    const firebaseTimestamp = new Timestamp(currentDate);
-    console.log(JSON.stringify(firebaseTimestamp));
+    console.log(Timestamp.fromDate(tempDate));
+    onChange(Timestamp.fromDate(tempDate));
   };
   const showMode = (currentMode) => {
     setShow(true);

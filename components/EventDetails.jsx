@@ -13,7 +13,7 @@ export function EventDetails({ event, onClose }) {
             <Text className="text-2xl font-bold ml-3">{event.event_name}</Text>
             <Text className="pt-4 ml-3">{event.description}</Text>
             <Text className="pt-4 ml-3">
-              When: {new Date(event.date_time.seconds).toLocaleString()}
+              When: {event.date_time.toDate().toLocaleString()}
             </Text>
             <Text className="pt-4 ml-3">Location: {event.address}</Text>
             <Text className="pt-4 ml-3">
