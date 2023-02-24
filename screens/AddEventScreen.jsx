@@ -22,20 +22,6 @@ const AddEventScreen = () => {
     website: "",
   });
 
-  const [address, setAddress] = useState("");
-  const [postcode, setPostcode] = useState("");
-  const [charityId, setCharityId] = useState(0);
-  const [dateTime, setDateTime] = useState("");
-  const [description, setDescription] = useState("");
-  const [email, setEmail] = useState("");
-  const [eventCount, setEventCount] = useState("");
-  const [eventName, setEventName] = useState("");
-  const [organisationName, setOrganisationName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [volunteers, setVolunteers] = useState("");
-  const [volunteerNeeded, setVolunteerNeeded] = useState("");
-  const [website, setWebsite] = useState("");
-
   // need to add a check to make sure fields are valid & disable button + clear fields
   function submitForm() {
     if (Object.keys(formData).length < 1) {
