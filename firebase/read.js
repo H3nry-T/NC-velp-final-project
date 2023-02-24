@@ -23,7 +23,7 @@ async function getEventLocations() {
 export const findLatAndLong = async (postcode) => {
   try {
     const latAndLongData = await axios.get(
-      `http://postcodes.io/postcodes/m11rn`
+      `http://postcodes.io/postcodes/${postcode}`
     );
     return latAndLongData.data.result;
   } catch (error) {

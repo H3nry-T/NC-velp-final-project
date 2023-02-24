@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { db, dataFromFB, dataTest } from "../firebase/firebase";
 import MapView, { Marker } from "react-native-maps";
 import ButtonWithOverlay from "../components/ButtonWithOverlay";
 import List from "../components/List";
@@ -18,8 +17,6 @@ const HomeScreen = () => {
   const { replace, setOptions } = useNavigation();
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [events, setEvents] = useState([]);
-  const [eventsLat, setEventsLat] = useState([]);
-  const [eventsLong, setEventsLong] = useState([]);
 
   React.useLayoutEffect(() => {
     setOptions({
@@ -32,64 +29,26 @@ const HomeScreen = () => {
   }, [setOptions]);
 
   useEffect(() => {
-    //   async function test () {findLatAndLong()
-    //   const test1 = await findLatAndLong()
-    //     console.log(test1)
-    // }
-    // test()
-    //findLatAndLong().then((data) => {console.log("from home" ,data)})
-    getEventLocations().then((data) => {
-      setEvents(data);
+    getEventLocations().then((fbEventData) => {
+      let eventLocations = fbEventData;
+      const updatedEvents = eventLocations.map((eventLocation) => {
+        return findLatAndLong(eventLocation.postcode).then((data) => {
+          eventLocation.newlat = data.latitude;
+          eventLocation.newlong = data.longitude;
+          return eventLocation;
+        });
+      });
 
-      // for (const event of events) {
-      //   event.newlat = findLatAndLong().then((lat) => {return lat})
-      //   console.log(events)
-      // }
-      events.forEach((event) => {
-        findLatAndLong().then((data) => {
-          event.newlat = data.latitude
-          console.log(1, event)
-        })
-        // event.newlat = findLatAndLong().then((lat) => {return lat})
-
-      //   findLatAndLong().then((data) => {
-      //     // setEvents((prevEvents) => {
-
-      //     //   [...prevEvents, 123];
-      //     // })
-      // });
+      Promise.all(updatedEvents).then((eventsWithLatAndLong) => {
+        setEvents(eventsWithLatAndLong);
       });
     });
-    // const findAllPostCodes = events.map((event) => {
-      //   findLatAndLong()
-      // })
-      // const results = Promise.all(findAllPostCodes)
-      // console.log(results)
-    }, []);
-    
-    useEffect(() => {
-      console.log("final log", events);
+  }, []);
 
-    }, [events])
-
-
-
-
-  // useEffect(() => {
-  // const events =  getEventLocations(); // assuming getEventLocations() returns a promise
-  // const promises = events.map(event => findLatandLong(event)); // assuming findLatandLong() returns a promise
-  // const results =  Promise.all(promises);
-  // const updatedEvents = events.map((event, index) => {
-  //   return {
-  //     ...event,
-  //     lat: results[index].lat,
-  //     long: results[index].long
-  //   }
-  // });
-  // setEvents(updatedEvents);
-  // console.log(events)
-
-  // }, [])
+  //for reference purposes only
+  useEffect(() => {
+    console.log("final log", events);
+  }, [events]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -107,8 +66,8 @@ const HomeScreen = () => {
             <Marker
               key={event.id}
               coordinate={{
-                latitude: event.latitude,
-                longitude: event.longitude,
+                latitude: event.newlat,
+                longitude: event.newlong,
               }}
               pinColor="gold"
               title={event.title}
@@ -126,7 +85,6 @@ const HomeScreen = () => {
           draggable={true}
         ></Marker>
       </MapView>
-
       <List />
     </SafeAreaView>
   );
