@@ -10,24 +10,26 @@ export default function EventCard({ event }) {
     setSelectedEvent(event);
     setShowEventDetails(!showEventDetails);
   }
-
+  
   return (
-    <>
-      <View className=" w-full my-1 items-center bg-sky-200">
-        <TouchableOpacity onPress={handlePress}>
+    <View key={event.event_id}>
+      <View className=" w-full my-1 items-center bg-sky-200" key={event.event_id += 1}>
+        <TouchableOpacity onPress={handlePress} key={event.event_id += 2}>
           <Text className="text-2xl">{event.event_name}</Text>
           <Text className="pt-1">
-            When: {new Date(event.date_time.seconds).toLocaleString()}
+            {/*currently broken: (line below */}
+            When: {new Date(event?.date_time).toLocaleString()}
           </Text>
         </TouchableOpacity>
       </View>
 
       {showEventDetails && (
-        <EventDetails
+        <EventDetails 
+          key={event.event_id}
           event={selectedEvent}
           onClose={() => setShowEventDetails(false)}
         />
       )}
-    </>
+    </View >
   );
 }

@@ -14,7 +14,7 @@ const testEventsCollection = collection(dataBase, "test_events");
 
 export async function getEventLocations() {
   let locations = [];
-  const querySnapshot = await getDocs(collection(db, "test_markers"));
+  const querySnapshot = await getDocs(collection(db, "test_events"));
   querySnapshot.forEach((doc) => {
     const eventdetails = doc.data()
     eventdetails.id = doc.id
@@ -25,9 +25,11 @@ export async function getEventLocations() {
 
 export const findLatAndLong = async (postcode) => {
   try {
+
     const latAndLongData = await axios.get(
       `http://postcodes.io/postcodes/${postcode}`
     );
+   
     return latAndLongData.data.result;
   } catch (error) {
     console.error(error);
@@ -40,9 +42,9 @@ export const getTestEvents = async () => {
     const testEvents = [];
     snapshot.docs.forEach((doc) => {
       const tempData = doc.data();
+      tempData.event_id = doc.id
       testEvents.push(tempData);
     });
-    // console.log(testEvents);
     return testEvents;
   } catch (error) {
     console.error(error);

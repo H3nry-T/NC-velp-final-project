@@ -5,18 +5,21 @@ import {
   TouchableOpacity,
   View,
   SafeAreaView,
+  Modal,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, Callout } from "react-native-maps";
 import ButtonWithOverlay from "../components/ButtonWithOverlay";
 import { getEventLocations, findLatAndLong } from "../firebase/read";
 import ListButton from "../components/ListButton";
+import { EventDetails } from "../components/EventDetails";
 
 const HomeScreen = () => {
   const { replace, setOptions } = useNavigation();
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [events, setEvents] = useState([]);
+  const [showEventDetails, setShowEventDetails] = useState(false);
 
   React.useLayoutEffect(() => {
     setOptions({
@@ -46,9 +49,11 @@ const HomeScreen = () => {
   }, []);
 
   //for reference purposes only
-  useEffect(() => {
-    console.log("final log", events);
-  }, [events]);
+  useEffect(() => {}, [events]);
+
+  const openEventDetails = (event) => {
+    setShowEventDetails(true);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -70,8 +75,19 @@ const HomeScreen = () => {
                 longitude: event.newlong,
               }}
               pinColor="gold"
-              title={event.title}
-            ></Marker>
+            >
+              <Callout onPress={() => openEventDetails(event)}>
+                <Text className="text-3xl">{event.event_name}</Text>
+                {showEventDetails && (
+                  
+                  <EventDetails
+                    key={event.id}
+                    event={event}
+                    onClose={() => setShowEventDetails(false)}
+                  />
+                )}
+              </Callout>
+            </Marker>
           );
         })}
 
