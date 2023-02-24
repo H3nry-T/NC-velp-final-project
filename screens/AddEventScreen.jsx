@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 import { createNewTestEvent } from "../firebase/create";
 import FormInputFieldGeneric from "../components/FormInputFieldGeneric";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { serverTimestamp, Timestamp } from "firebase/firestore";
 const AddEventScreen = () => {
   //ALL
   const [date, setDate] = useState(new Date());
@@ -38,14 +39,8 @@ const AddEventScreen = () => {
     setShow(Platform.OS === "ios");
     setDate(currentDate);
     let tempDate = new Date(currentDate);
-    let fDate =
-      tempDate.getDate() +
-      "/" +
-      (tempDate.getMonth() + 1) +
-      "/" +
-      tempDate.getFullYear();
-    let fTime = tempDate.getHours() + ":" + tempDate.getMinutes();
-    setText(fDate + " at " + fTime);
+    // console.log(tempDate.toLocaleString());
+    setText(tempDate.toLocaleString("en-GB"));
   };
   const showMode = (currentMode) => {
     setShow(true);
@@ -59,10 +54,11 @@ const AddEventScreen = () => {
   return (
     <ScrollView className="flex-1">
       <FormInputFieldGeneric label={"address"} />
+      <FormInputFieldGeneric label={"postcode"} />
       <FormInputFieldGeneric label={"charity id"} />
       <Text className="ml-6 mb-1">date time</Text>
       <TouchableOpacity
-        className="bg-white rounded-full w-11/12 mx-auto h-7 "
+        className="bg-white rounded-full w-11/12 mx-auto h-7 justify-center pl-1"
         onPress={() => {
           showMode("datetime");
         }}
