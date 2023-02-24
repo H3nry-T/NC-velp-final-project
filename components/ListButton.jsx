@@ -5,6 +5,7 @@ import {
   Modal,
   Pressable,
   Touchable,
+  ScrollView,
 } from "react-native";
 import { useState, useEffect } from "react";
 import { getTestEvents } from "../firebase/read";
@@ -53,25 +54,29 @@ export default function List() {
         <TouchableOpacity className="px-10 py-3 bg-sky-300">
           <Text className="text-center mt-10">Event List</Text>
         </TouchableOpacity>
-        <View className="flex-1 ">{testEventCards && testEventCards}</View>
-        <TouchableOpacity className=" justify-end">
-          <Text
-            onPress={toggleEventList}
-            className="text-center px-10 py-7 bg-sky-800 rounded-xl mb-5"
-          >
-            Close
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity className=" justify-end">
-          <Text
-            onPress={() => {
-              return navigation.navigate("AddEvent");
-            }}
-            className="text-center px-10 py-7 bg-sky-800 rounded-xl mb-5"
-          >
-            Add Event
-          </Text>
-        </TouchableOpacity>
+        <ScrollView className="flex-1 ">
+          {testEventCards && testEventCards}
+        </ScrollView>
+        <View className=" flex-row justify-evenly items-center my-5">
+          <TouchableOpacity className="text-center px-6 py-2 bg-cyan-800 rounded-xl">
+            <Text
+              onPress={() => {
+                return navigation.navigate("AddEvent");
+              }}
+              className="text-center text-white font-extrabold text-xl"
+            >
+              Add Event
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity className="text-center px-6 py-2 bg-cyan-800 rounded-xl">
+            <Text
+              onPress={toggleEventList}
+              className="text-center text-white font-extrabold text-xl"
+            >
+              Close
+            </Text>
+          </TouchableOpacity>
+        </View>
       </Modal>
 
       <View className="flex-row">
