@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View, Modal, Pressable } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { EventDetails } from "./EventDetails";
 import { useState } from "react";
 

@@ -5,20 +5,23 @@ import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 //icons
 import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import { Timestamp } from "firebase/firestore";
 
-export function FormDateTimePicker() {
+export function FormDateTimePicker({ label, formDataField, onChange }) {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
   const [text, setText] = useState("Empty");
 
-  const onChange = (event, selectedDate) => {
+  const onChangeDate = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === "ios");
     setDate(currentDate);
     let tempDate = new Date(currentDate);
     // console.log(tempDate.toLocaleString());
     setText(tempDate.toLocaleString("en-GB"));
+
+    const firebaseTimestamp = new Timestamp(currentDate);
     //set to state parent state. the parent state will be pushed to the database soon
   };
   const showMode = (currentMode) => {
@@ -52,7 +55,7 @@ export function FormDateTimePicker() {
         DateTimePickerAndroid.open({
           mode: mode,
           value: date,
-          onChange: onChange,
+          onChange: onChangeDate,
         })}
     </>
   );
