@@ -15,6 +15,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
+import { Firestore, getFirestore } from "firebase/firestore";
 
 //---------------------//
 
@@ -44,4 +45,5 @@ if (getApps().length < 1) {
   app = getApp();
   auth = getAuth();
 }
-export { auth, app };
+let db = getFirestore(app);
+export { auth, app, db };
