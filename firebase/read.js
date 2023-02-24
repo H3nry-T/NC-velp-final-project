@@ -9,7 +9,10 @@ import {
   doc,
 } from "firebase/firestore";
 
-async function getEventLocations() {
+const dataBase = getFirestore();
+const testEventsCollection = collection(dataBase, "test_events");
+
+export async function getEventLocations() {
   let locations = [];
   const querySnapshot = await getDocs(collection(db, "test_markers"));
   querySnapshot.forEach((doc) => {
@@ -31,4 +34,19 @@ export const findLatAndLong = async (postcode) => {
   }
 };
 
-export { getEventLocations };
+export const getTestEvents = async () => {
+  try {
+    const snapshot = await getDocs(testEventsCollection);
+    const testEvents = [];
+    snapshot.docs.forEach((doc) => {
+      const tempData = doc.data();
+      testEvents.push(tempData);
+    });
+    // console.log(testEvents);
+    return testEvents;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+

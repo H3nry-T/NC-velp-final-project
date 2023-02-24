@@ -10,8 +10,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import MapView, { Marker } from "react-native-maps";
 import ButtonWithOverlay from "../components/ButtonWithOverlay";
-import List from "../components/List";
 import { getEventLocations, findLatAndLong } from "../firebase/read";
+import ListButton from "../components/ListButton";
 
 const HomeScreen = () => {
   const { replace, setOptions } = useNavigation();
@@ -85,7 +85,7 @@ const HomeScreen = () => {
           draggable={true}
         ></Marker>
       </MapView>
-      <List />
+      <ListButton />
     </SafeAreaView>
   );
 };
