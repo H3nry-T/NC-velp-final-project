@@ -1,29 +1,34 @@
-import {db} from './firebase'
-import axios from "axios"
+import { db } from "./firebase";
+import axios from "axios";
 import {
-    getFirestore,
-    collection,
-    addDoc,
-    getDocs,
-    getDatabase,
-    doc,
-  } from "firebase/firestore";
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  getDatabase,
+  doc,
+} from "firebase/firestore";
 
 async function getEventLocations() {
-    let myArray = [];
-    const querySnapshot = await getDocs(collection(db, "test_markers"));
-    querySnapshot.forEach((doc) => {
-      myArray.push({id: doc.id, data: doc.data()});
-    });
-    return myArray;
-  }
-
-export const findLatAndLong = (postcode) => {
-    return axios
-        .get(`http://postcodes.io/postcodes/m11rn`)
-        .then(({data}) => {
-           return (data.result)
-        })
+  let locations = [];
+  const querySnapshot = await getDocs(collection(db, "test_markers"));
+  querySnapshot.forEach((doc) => {
+    const eventdetails = doc.data()
+    eventdetails.id = doc.id
+    locations.push(eventdetails);
+  });
+  return locations;
 }
 
-export { getEventLocations }
+export const findLatAndLong = async (postcode) => {
+  try {
+    const latAndLongData = await axios.get(
+      `http://postcodes.io/postcodes/m11rn`
+    );
+    return latAndLongData.data.result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { getEventLocations };
