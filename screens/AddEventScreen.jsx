@@ -9,19 +9,19 @@ import { Timestamp } from "firebase/firestore";
 const AddEventScreen = () => {
   //Temp data inside to test, prior to getting data from actual form
   const [formData, setFormData] = useState({
-    address: "99 bonso tree street",
-    charity_id: 520162,
+    address: "321 Pine Street",
+    charity_id: 456789,
     date_time: new Timestamp(),
-    description: "help me plant trees 🎄",
-    email: "tree@gmail.com",
+    description: "Holiday toy selling",
+    email: "toys@example.com",
     event_count: 1,
-    event_name: "🌲 helping !",
-    organisation_name: "treetop",
-    phone: "123456789",
-    postcode: "BN13 1HZ",
+    event_name: "Toy Drive",
+    organisation_name: "Holiday Helpers",
+    phone: "555-555-5555",
+    postcode: "SA10 6FN",
     volunteers: [],
-    volunteer_needed: 2,
-    website: "https://treetopwebsite.com/volunteering",
+    volunteer_needed: 11,
+    website: "https://holidayhelpers.com",
   });
   const navigation = useNavigation();
 
@@ -29,18 +29,28 @@ const AddEventScreen = () => {
     //Make form data ready to be sent off at submitForm()
 
     //THIS FUNCTION IS CALLED INSIDE OF FormDateTimePicker AS "onChange".
-    return (formInputFieldText) => {
-      let dataToInsert = formInputFieldText;
+    return (textFromUsersFormInput) => {
       if (
         fieldToUpdate === "charity_id" ||
         fieldToUpdate === "event_count" ||
         fieldToUpdate === "volunteer_needed"
       ) {
-        if (dataToInsert !== "") {
-          dataToInsert = parseInt(formInputFieldText);
+        /* 
+        only turn the user's input into an integer 
+        only if it WONT turn into a NaN of some kind
+        */
+        if (
+          textFromUsersFormInput !== "" &&
+          !isNaN(parseInt(textFromUsersFormInput))
+        ) {
+          // console.log("parseInting the text input", textFromUsersFormInput);
+          textFromUsersFormInput = parseInt(textFromUsersFormInput);
+          setFormData({ ...formData, [fieldToUpdate]: textFromUsersFormInput });
         }
+      } else {
+        // console.log("Leave as a string" + textFromUsersFormInput);
+        setFormData({ ...formData, [fieldToUpdate]: textFromUsersFormInput });
       }
-      setFormData({ ...formData, [fieldToUpdate]: dataToInsert });
     };
   }
 
@@ -54,6 +64,7 @@ const AddEventScreen = () => {
      are valid & disable button + clear fields */
     // console.log(formData);
     // console.log(checkIfStringCannotBeInteger(formData["event_count"]));
+    console.log(formData);
     if (
       Object.values(formData).some((value) => value === "") ||
       checkIfStringCannotBeInteger(formData["charity_id"]) ||
@@ -62,10 +73,14 @@ const AddEventScreen = () => {
     ) {
       alert("form invalid");
     } else {
-      console.log("sent the form!");
-      alert("event created!");
-      createNewTestEvent(formData);
-      navigation.replace("Home");
+      createNewTestEvent(formData)
+        .then(() => {
+          alert("event created!");
+          navigation.replace("Home");
+        })
+        .catch((error) => {
+          alert(`${error}`);
+        });
     }
   }
 
