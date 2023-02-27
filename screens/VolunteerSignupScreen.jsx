@@ -11,21 +11,22 @@ import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-import { collection, addDoc, db, getDocs } from "../firebase/firebase";
+import { collection, addDoc, db, getDocs, auth } from "../firebase/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 export default function VolunteerSignupScreen() {
   const [volunteers, setVolunteers] = useState([]);
 
   const [volunteerFormData, setVolunteerFormData] = useState({
-    username: null,
-    first_name: null,
-    last_name: null,
-    email: null,
+    username: "bigman",
+    first_name: "ting",
+    last_name: "chad",
+    email: "pro@gmail.com",
     date_of_birth: null,
-    phone: null,
-    post_code: null,
-    password: null,
-    password_again: null,
+    phone: "07578996644",
+    post_code: "MA7 9AM",
+    password: "123456",
+    password_again: "123456",
   });
 
   const [date, setDate] = useState(new Date());
@@ -33,7 +34,7 @@ export default function VolunteerSignupScreen() {
   const [show, setShow] = useState(false);
   const [text, setText] = useState("empty");
 
-  const onChange = (selectedDate) => {
+  const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === "ios");
     setDate(currentDate);
@@ -174,8 +175,8 @@ export default function VolunteerSignupScreen() {
 
     createUserWithEmailAndPassword(
       auth,
-      charityFormData.email,
-      charityFormData.password
+      volunteerFormData.email,
+      volunteerFormData.password
     )
       .then((userCredential) => {
         // Signed in
