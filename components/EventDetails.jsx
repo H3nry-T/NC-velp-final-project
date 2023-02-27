@@ -5,7 +5,7 @@ import {registerOnEvent} from "../firebase/update"
 export function EventDetails({ event, onClose }) {
 
   return (
-    <Modal animationType="slide" visible={true}>
+    <Modal animationType="slide" visible={true} >
       <View className=" bg-sky-200 flex-1 justify-center items-center">
         <View className="w-11/12 min-h-96 bg-white rounded-md shadow-lg">
           <TouchableOpacity onPress={onClose}>
@@ -15,7 +15,7 @@ export function EventDetails({ event, onClose }) {
             <Text className="text-2xl font-bold ml-3">{event.event_name}</Text>
             <Text className="pt-4 ml-3">{event.description}</Text>
             <Text className="pt-4 ml-3">
-              When: {new Date(event.date_time.seconds).toLocaleString()}
+              When: {event.date_time.toDate().toLocaleString()}
             </Text>
             <Text className="pt-4 ml-3">Location: {event.address}</Text>
             <Text className="pt-4 ml-3">

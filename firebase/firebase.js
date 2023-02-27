@@ -15,6 +15,14 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  getDatabase,
+  doc,
+} from "firebase/firestore";
 
 //---------------------//
 
@@ -32,6 +40,10 @@ const firebaseConfig = {
 };
 /*========================= */
 /*================= */
+// Get a Firestore instance
+
+// Use the collection function to create a reference to your collection
+
 // Initialize Firebase
 let app;
 let auth;
@@ -44,4 +56,5 @@ if (getApps().length < 1) {
   app = getApp();
   auth = getAuth();
 }
-export { auth, app };
+let db = getFirestore(app);
+export { auth, app, db, collection, addDoc, getDocs };
