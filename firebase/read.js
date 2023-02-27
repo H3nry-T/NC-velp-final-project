@@ -11,6 +11,7 @@ export const getTestEvents = async () => {
     const testEvents = [];
     snapshot.docs.forEach((doc) => {
       const tempData = doc.data();
+      tempData.testEventIdFromFirebase = doc.id;
       testEvents.push(tempData);
     });
     // console.log(testEvents);
