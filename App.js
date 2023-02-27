@@ -10,6 +10,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import SignupScreen from "./screens/CharitySignupScreen";
 import VolunteerSignupScreen from "./screens/VolunteerSignupScreen";
+import AddEventScreen from "./screens/AddEventScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +37,7 @@ export default function App() {
                     />
                     <Stack.Screen name="Home" component={HomeScreen} />
                     <Stack.Screen name="Map" component={Map} />
+                    <Stack.Screen name="AddEvent" component={AddEventScreen} />
                     <Stack.Screen
                         name="Charity Signup Form"
                         component={SignupScreen}

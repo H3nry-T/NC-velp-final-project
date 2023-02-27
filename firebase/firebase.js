@@ -26,6 +26,7 @@ import {
     signOut,
     onAuthStateChanged,
 } from "firebase/auth";
+import { Firestore, getFirestore } from "firebase/firestore";
 
 //---------------------//
 
@@ -50,15 +51,14 @@ const firebaseConfig = {
 // Initialize Firebase
 let app;
 let auth;
-let db;
 if (getApps().length < 1) {
-    app = initializeApp(firebaseConfig);
-    db = getFirestore(app);
-    auth = initializeAuth(app, {
-        persistence: getReactNativePersistence(AsyncStorage),
-    });
+  app = initializeApp(firebaseConfig);
+  auth = initializeAuth(app, {
+    persistence: getReactNativePersistence(AsyncStorage),
+  });
 } else {
     app = getApp();
     auth = getAuth();
 }
-export { auth, app, db, getFirestore, collection, addDoc, getDocs };
+let db = getFirestore(app);
+export { auth, app, db };
