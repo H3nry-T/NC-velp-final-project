@@ -8,25 +8,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { getApp, getApps, initializeApp } from "firebase/app";
 
-import {
-    getFirestore,
-    collection,
-    addDoc,
-    getDocs,
-    // doc,
-    // updateDoc,
-    // deleteDoc,
-} from "firebase/firestore";
+import { addDoc, collection, getDocs, getFirestore } from "firebase/firestore";
 
-import {
-    getAuth,
-    initializeAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut,
-    onAuthStateChanged,
-} from "firebase/auth";
-import { Firestore, getFirestore } from "firebase/firestore";
+import { getAuth, initializeAuth } from "firebase/auth";
 
 //---------------------//
 
@@ -35,12 +19,12 @@ import { Firestore, getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyA_3Ucha-eEIEgAfCbXM2yA7Nr5UmVk9Wg",
-    authDomain: "fir-auth-7678a.firebaseapp.com",
-    projectId: "fir-auth-7678a",
-    storageBucket: "fir-auth-7678a.appspot.com",
-    messagingSenderId: "534706956586",
-    appId: "1:534706956586:web:d094759d5e094bec939653",
+  apiKey: "AIzaSyA_3Ucha-eEIEgAfCbXM2yA7Nr5UmVk9Wg",
+  authDomain: "fir-auth-7678a.firebaseapp.com",
+  projectId: "fir-auth-7678a",
+  storageBucket: "fir-auth-7678a.appspot.com",
+  messagingSenderId: "534706956586",
+  appId: "1:534706956586:web:d094759d5e094bec939653",
 };
 /*========================= */
 /*================= */
@@ -57,8 +41,8 @@ if (getApps().length < 1) {
     persistence: getReactNativePersistence(AsyncStorage),
   });
 } else {
-    app = getApp();
-    auth = getAuth();
+  app = getApp();
+  auth = getAuth();
 }
 let db = getFirestore(app);
-export { auth, app, db };
+export { auth, app, db, collection, addDoc, getDocs };
