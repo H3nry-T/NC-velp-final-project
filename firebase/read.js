@@ -51,4 +51,4 @@ export const getTestEvents = async () => {
   }
 };
 
-
+export { testEventsCollection };

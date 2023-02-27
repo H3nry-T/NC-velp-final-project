@@ -1,10 +1,9 @@
-import { Text, TouchableOpacity, View, Modal, Pressable } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { EventDetails } from "./EventDetails";
 import { useState } from "react";
 
 export default function EventCard({ event, setSelectedEvent, setShowEventDetails, showEventDetails }) {
   function handlePress() {
-    console.log(3, event);
     setSelectedEvent(event);
     setShowEventDetails(!showEventDetails);
   }
