@@ -17,7 +17,8 @@ export default function List() {
       return;
     }
     const buildCards = testEventsData.map((event) => {
-      return <EventCard event={event} />;
+      console.log(event.charity_id);
+      return <EventCard event={event} key={event.charity_id} />;
     });
     setTestEventCards(buildCards);
   }
