@@ -21,7 +21,6 @@ export function FormDateTimePicker({ label, formDataField, onChange }) {
     //sets the text above the input field
     setText(tempDate.toLocaleString("en-GB"));
 
-    console.log(Timestamp.fromDate(tempDate));
     onChange(Timestamp.fromDate(tempDate));
   };
   const showMode = (currentMode) => {

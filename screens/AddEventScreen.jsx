@@ -26,10 +26,6 @@ const AddEventScreen = () => {
   });
   const navigation = useNavigation();
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
-
   function handleUpdateFormDataOnClientSide(fieldToUpdate) {
     //Make form data ready to be sent off at submitForm()
 
@@ -71,7 +67,6 @@ const AddEventScreen = () => {
      are valid & disable button + clear fields */
     // console.log(formData);
     // console.log(checkIfStringCannotBeInteger(formData["event_count"]));
-    console.log(formData);
     if (
       checkIfStringCannotBeInteger(formData["charity_id"]) ||
       checkIfStringCannotBeInteger(formData["event_count"]) ||
