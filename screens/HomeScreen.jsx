@@ -26,7 +26,13 @@ const HomeScreen = () => {
   React.useLayoutEffect(() => {
     setOptions({
       header: () => (
-        <View style={{ flexDirection: "row", paddingTop: 45,  backgroundColor: "#87CEEB" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingTop: 45,
+            backgroundColor: "#87CEEB",
+          }}
+        >
           <ButtonWithOverlay></ButtonWithOverlay>
         </View>
       ),
@@ -69,7 +75,7 @@ const HomeScreen = () => {
         {events?.map((event) => {
           return (
             <Marker
-              key={event.id}
+              key={event.event_id}
               coordinate={{
                 latitude: event.newlat,
                 longitude: event.newlong,
@@ -115,7 +121,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    
   },
   button: {
     width: "30%",
