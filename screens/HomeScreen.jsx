@@ -21,6 +21,7 @@ const HomeScreen = () => {
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [events, setEvents] = useState([]);
   const [showEventDetails, setShowEventDetails] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   React.useLayoutEffect(() => {
     setOptions({
@@ -50,7 +51,8 @@ const HomeScreen = () => {
   }, []);
 
   const openEventDetails = (event) => {
-   
+    setSelectedEvent(event)
+    console.log(selectedEvent)
     setShowEventDetails(true);
   };
 
@@ -85,10 +87,10 @@ const HomeScreen = () => {
                   source={require('../assets/event-img.jpg')}
                   >
                   </Image>*/}
-                  {showEventDetails && (
+                  {showEventDetails && selectedEvent &&(
                     <EventDetails
                       key={event.id}
-                      event={event}
+                      event={selectedEvent}
                       onClose={() => setShowEventDetails(false)}
                     />
                   )}
