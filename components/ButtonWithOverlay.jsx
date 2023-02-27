@@ -14,8 +14,8 @@ const ButtonWithOverlay = () => {
   };
 
   return (
-    <View>
-      <Button title="Menu" onPress={handleOpenOverlay} />
+    <View >
+      <Button title="Menu" onPress={handleOpenOverlay} className="rounded-full"/>
       <Overlay isVisible={isOverlayVisible} onClose={handleCloseOverlay} />
     </View>
   );

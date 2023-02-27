@@ -32,12 +32,12 @@ const LoginScreen = () => {
     // <KeyboardAvoidingView behavior="padding">
     <SafeAreaView>
      
-      <View className=" justify-center items-center h-full w-full">
-      <ImageBackground
-        source={require("../assets/logo.png")}
-        className="w-20 h-20"
+      <View className=" justify-center items-center h-full w-full bg-sky-200">
        
-      ></ImageBackground>
+      <Image
+        source={require("../assets/logo1.png")}
+        className="w-25 h-auto"
+        />
         <LoginForm
           email={email}
           setEmail={setEmail}
@@ -48,6 +48,7 @@ const LoginScreen = () => {
         <LoginButton email={email} password={password} />
         <RegisterButton email={email} password={password} />
       </View>
+        
     </SafeAreaView>
     // </KeyboardAvoidingView>
   );

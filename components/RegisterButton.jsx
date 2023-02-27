@@ -9,9 +9,9 @@ export function RegisterButton() {
     return !onVolunteer ? (
       <TouchableOpacity
         onPress={() => navigation.navigate("Charity Signup Form")}
-        className="border rounded-full p-2 w-2/5"
+        className="rounded-full p-2 w-2/5 bg-cyan-800"
       >
-        <Text className="text-l text-center font-bold text-sky-500">
+        <Text className="text-l text-center font-bold text-white">
           Register
         </Text>
       </TouchableOpacity>

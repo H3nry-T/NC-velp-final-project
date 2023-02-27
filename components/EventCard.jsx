@@ -10,12 +10,11 @@ export default function EventCard({ event, setSelectedEvent, setShowEventDetails
 
   return (
     <View key={event.event_id}>
-      <View className=" w-full my-1 items-center bg-sky-200">
+      <View className=" w-full my-1 bg-sky-200 items-start pl-4 rounded-full py-2">
         <TouchableOpacity onPress={handlePress}>
           <Text className="text-2xl">{event.event_name}</Text>
           <Text className="pt-1">
-            {/*currently broken: (line below */}
-            When: {new Date(event?.date_time).toLocaleString()}
+            When: {event.date_time.toDate().toLocaleString()}
           </Text>
         </TouchableOpacity>
       </View>
