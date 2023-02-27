@@ -3,6 +3,7 @@
 import { getAuth } from "firebase/auth";
 import { useEffect,useState } from "react";
 import { getFirestore, doc, arrayUnion,updateDoc, setDoc, getDoc } from "firebase/firestore";
+import { auth } from "./firebase";
 
 
 
@@ -37,18 +38,18 @@ const myupdate = async () => {
 
 
 // //WE ADD USER IN THE EVENT
-const auth = getAuth();
-const authUser = auth.currentUser;
 
+
+const authUser = auth.currentUser;
 const UserInformationOnRegisterTestEvent = {
   email: authUser.email,
   userId: authUser.uid,
 }
 
 export const registerOnEvent = async (event) => {
-  console.log(event.testEventIdFromFirebase);
+  console.log(event.event_id);
   try{
-    const ref = doc(db, "test_events", event.testEventIdFromFirebase);   
+    const ref = doc(db, "test_events", event.event_id);   
     await updateDoc(ref, {
       volunteers:arrayUnion(UserInformationOnRegisterTestEvent)
   });
