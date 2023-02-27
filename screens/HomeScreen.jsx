@@ -6,6 +6,7 @@ import {
   View,
   SafeAreaView,
   Modal,
+  Image,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -48,9 +49,6 @@ const HomeScreen = () => {
     });
   }, []);
 
-  //for reference purposes only
-  useEffect(() => {}, [events]);
-
   const openEventDetails = (event) => {
     setShowEventDetails(true);
   };
@@ -74,19 +72,28 @@ const HomeScreen = () => {
                 latitude: event.newlat,
                 longitude: event.newlong,
               }}
-              pinColor="gold"
+              pinColor={"aqua"}
+              icon={require("../assets/event-icon.png")}
+              style={{ width: 40, height: 40 }}
             >
-              <Callout onPress={() => openEventDetails(event)}>
-                <Text className="text-3xl">{event.event_name}</Text>
-                {showEventDetails && (
-                  
-                  <EventDetails
-                    key={event.id}
-                    event={event}
-                    onClose={() => setShowEventDetails(false)}
-                  />
-                )}
-              </Callout>
+              <View style={styles.callout}>
+                <Callout onPress={() => openEventDetails(event)}>
+                  <Text>{event.event_name}</Text>
+
+                  {/*<Image
+                  style={styles.image}
+                  source={require('../assets/event-img.jpg')}
+                  >
+                  </Image>*/}
+                  {showEventDetails && (
+                    <EventDetails
+                      key={event.id}
+                      event={event}
+                      onClose={() => setShowEventDetails(false)}
+                    />
+                  )}
+                </Callout>
+              </View>
             </Marker>
           );
         })}
@@ -131,5 +138,15 @@ const styles = StyleSheet.create({
   map: {
     width: "100%",
     height: "100%",
+  },
+  name: {
+    fontSize: 10,
+  },
+  image: {
+    width: 50,
+    height: 50,
+  },
+  callout: {
+    flexDirection: "row",
   },
 });
