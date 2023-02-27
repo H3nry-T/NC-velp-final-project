@@ -2,11 +2,14 @@ import { Text, TouchableOpacity, View, Modal, Pressable } from "react-native";
 import { useState, useEffect } from "react";
 import { getTestEvents } from "../firebase/read";
 import EventCard from "./EventCard";
+import { EventDetails } from "./EventDetails";
 
 export default function List() {
   const [showList, setShowList] = useState(false);
-  let [testEventsData, setTestEventsData] = useState([]);
+  let   [testEventsData, setTestEventsData] = useState([]);
   const [testEventCards, setTestEventCards] = useState([]);
+  const [showEventDetails, setShowEventDetails] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   function toggleEventList() {
     setShowList(!showList);
@@ -17,7 +20,14 @@ export default function List() {
       return;
     }
     const buildCards = testEventsData.map((event) => {
-      return <EventCard event={event} />;
+      return (
+        <EventCard
+          event={event}
+          setSelectedEvent={setSelectedEvent}
+          setShowEventDetails={setShowEventDetails}
+          showEventDetails={showEventDetails}
+        />
+      );
     });
     setTestEventCards(buildCards);
   }
@@ -62,6 +72,12 @@ export default function List() {
           </View>
         </TouchableOpacity>
       </View>
+      {showEventDetails && (
+        <EventDetails 
+          event={selectedEvent}
+          onClose={() => setShowEventDetails(false)}
+        />
+      )}
     </View>
   );
 }

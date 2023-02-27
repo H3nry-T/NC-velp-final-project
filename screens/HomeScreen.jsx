@@ -51,8 +51,7 @@ const HomeScreen = () => {
   }, []);
 
   const openEventDetails = (event) => {
-    setSelectedEvent(event)
-    console.log(selectedEvent)
+    setSelectedEvent(event);
     setShowEventDetails(true);
   };
 
@@ -79,7 +78,7 @@ const HomeScreen = () => {
               icon={require("../assets/event-icon.png")}
             >
               <View style={styles.callout}>
-                <Callout onPress={() => openEventDetails(event, console.log(1, event))}>
+                <Callout onPress={() => openEventDetails(event)}>
                   <Text>{event.event_name}</Text>
 
                   {/*<Image
@@ -87,13 +86,6 @@ const HomeScreen = () => {
                   source={require('../assets/event-img.jpg')}
                   >
                   </Image>*/}
-                  {showEventDetails && selectedEvent &&(
-                    <EventDetails
-                      key={event.id}
-                      event={selectedEvent}
-                      onClose={() => setShowEventDetails(false)}
-                    />
-                  )}
                 </Callout>
               </View>
             </Marker>
@@ -111,6 +103,12 @@ const HomeScreen = () => {
         ></Marker>
       </MapView>
       <ListButton />
+      {showEventDetails && selectedEvent && (
+        <EventDetails
+          event={selectedEvent}
+          onClose={() => setShowEventDetails(false)}
+        />
+      )}
     </SafeAreaView>
   );
 };
