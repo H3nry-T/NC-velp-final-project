@@ -2,6 +2,7 @@ import { Text, TouchableOpacity, View, Modal, Pressable } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 
 export function EventDetails({ event, onClose,}) {
+  console.log(event[0])
   return (
     <Modal animationType="slide" visible={true} >
       <View className=" bg-sky-200 flex-1 justify-center items-center">

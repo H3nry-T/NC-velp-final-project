@@ -50,6 +50,7 @@ const HomeScreen = () => {
   }, []);
 
   const openEventDetails = (event) => {
+   
     setShowEventDetails(true);
   };
 
@@ -74,10 +75,9 @@ const HomeScreen = () => {
               }}
               pinColor={"aqua"}
               icon={require("../assets/event-icon.png")}
-              style={{ width: 40, height: 40 }}
             >
               <View style={styles.callout}>
-                <Callout onPress={() => openEventDetails(event)}>
+                <Callout onPress={() => openEventDetails(event, console.log(1, event))}>
                   <Text>{event.event_name}</Text>
 
                   {/*<Image

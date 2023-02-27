@@ -13,8 +13,8 @@ export default function EventCard({ event }) {
   
   return (
     <View key={event.event_id}>
-      <View className=" w-full my-1 items-center bg-sky-200" key={event.event_id += 1}>
-        <TouchableOpacity onPress={handlePress} key={event.event_id += 2}>
+      <View className=" w-full my-1 items-center bg-sky-200" >
+        <TouchableOpacity onPress={handlePress}>
           <Text className="text-2xl">{event.event_name}</Text>
           <Text className="pt-1">
             {/*currently broken: (line below */}
