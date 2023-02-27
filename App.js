@@ -8,6 +8,7 @@ import NavBar from "./components/NavBar";
 import { auth } from "./firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
+import AddEventScreen from "./screens/AddEventScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -32,11 +33,10 @@ export default function App() {
             name="Login"
             component={LoginScreen}
           />
-         
+
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Map" component={Map} />
-          
-          
+          <Stack.Screen name="AddEvent" component={AddEventScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

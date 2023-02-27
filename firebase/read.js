@@ -1,8 +1,7 @@
-// import axios from "axios";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "./firebase";
 
-const dataBase = getFirestore();
-const testEventsCollection = collection(dataBase, "test_events");
+const testEventsCollection = collection(db, "test_events");
 
 export const getTestEvents = async () => {
   try {
@@ -11,11 +10,16 @@ export const getTestEvents = async () => {
     const testEvents = [];
     snapshot.docs.forEach((doc) => {
       const tempData = doc.data();
-      testEvents.push(tempData);
+      const eventData = {
+        ...tempData,
+        event_id: doc.id,
+      };
+      testEvents.push(eventData);
     });
-    // console.log(testEvents);
     return testEvents;
   } catch (error) {
     console.error(error);
   }
 };
+
+export { testEventsCollection };
