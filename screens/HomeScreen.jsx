@@ -80,12 +80,6 @@ const HomeScreen = () => {
               <View style={styles.callout}>
                 <Callout onPress={() => openEventDetails(event)}>
                   <Text>{event.event_name}</Text>
-
-                  {/*<Image
-                  style={styles.image}
-                  source={require('../assets/event-img.jpg')}
-                  >
-                  </Image>*/}
                 </Callout>
               </View>
             </Marker>
