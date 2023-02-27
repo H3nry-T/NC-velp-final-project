@@ -40,6 +40,10 @@ const firebaseConfig = {
 };
 /*========================= */
 /*================= */
+// Get a Firestore instance
+
+// Use the collection function to create a reference to your collection
+
 // Initialize Firebase
 let app;
 let auth;
@@ -52,7 +56,5 @@ if (getApps().length < 1) {
   app = getApp();
   auth = getAuth();
 }
-
-const db = getFirestore(app);
-
-export { auth, app, db };
+let db = getFirestore(app);
+export { auth, app, db, collection, addDoc, getDocs };
