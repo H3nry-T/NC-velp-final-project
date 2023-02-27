@@ -10,12 +10,15 @@ import {
 import { useState, useEffect } from "react";
 import { getTestEvents } from "../firebase/read";
 import EventCard from "./EventCard";
+import { EventDetails } from "./EventDetails";
 import { useNavigation } from "@react-navigation/native";
 
 export default function List() {
   const [showList, setShowList] = useState(false);
-  let [testEventsData, setTestEventsData] = useState([]);
+  let   [testEventsData, setTestEventsData] = useState([]);
   const [testEventCards, setTestEventCards] = useState([]);
+  const [showEventDetails, setShowEventDetails] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
   const navigation = useNavigation();
 
   function toggleEventList() {
@@ -27,7 +30,15 @@ export default function List() {
       return;
     }
     const buildCards = testEventsData.map((event) => {
-      return <EventCard event={event} key={event.event_id} />;
+      return (
+        <EventCard
+          key={event.event_id}
+          event={event}
+          setSelectedEvent={setSelectedEvent}
+          setShowEventDetails={setShowEventDetails}
+          showEventDetails={showEventDetails}
+        />
+      );
     });
     setTestEventCards(buildCards);
   }
@@ -84,6 +95,12 @@ export default function List() {
           <Text className="text-2xl">List</Text>
         </TouchableOpacity>
       </View>
+      {showEventDetails && (
+        <EventDetails 
+          event={selectedEvent}
+          onClose={() => setShowEventDetails(false)}
+        />
+      )}
     </View>
   );
 }

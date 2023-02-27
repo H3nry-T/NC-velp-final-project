@@ -5,29 +5,55 @@ import {
   TouchableOpacity,
   View,
   SafeAreaView,
+  Modal,
+  Image,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase/firebase";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, Callout } from "react-native-maps";
 import ButtonWithOverlay from "../components/ButtonWithOverlay";
+import { getEventLocations, findLatAndLong } from "../firebase/read";
 import ListButton from "../components/ListButton";
+import { EventDetails } from "../components/EventDetails";
 
 const HomeScreen = () => {
   const { replace, setOptions } = useNavigation();
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+  const [events, setEvents] = useState([]);
+  const [showEventDetails, setShowEventDetails] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   React.useLayoutEffect(() => {
     setOptions({
       header: () => (
         <View style={{ flexDirection: "row", paddingTop: 25 }}>
           <ButtonWithOverlay></ButtonWithOverlay>
-          
         </View>
       ),
     });
   }, [setOptions]);
+
+  useEffect(() => {
+    getEventLocations().then((fbEventData) => {
+      let eventLocations = fbEventData;
+      const updatedEvents = eventLocations.map((eventLocation) => {
+        return findLatAndLong(eventLocation.postcode).then((data) => {
+          eventLocation.newlat = data.latitude;
+          eventLocation.newlong = data.longitude;
+          return eventLocation;
+        });
+      });
+
+      Promise.all(updatedEvents).then((eventsWithLatAndLong) => {
+        setEvents(eventsWithLatAndLong);
+      });
+    });
+  }, []);
+
+  const openEventDetails = (event) => {
+    setSelectedEvent(event);
+    setShowEventDetails(true);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -40,16 +66,43 @@ const HomeScreen = () => {
           longitudeDelta: 0.05,
         }}
       >
+        {events?.map((event) => {
+          return (
+            <Marker
+              key={event.id}
+              coordinate={{
+                latitude: event.newlat,
+                longitude: event.newlong,
+              }}
+              pinColor={"aqua"}
+              icon={require("../assets/event-icon.png")}
+            >
+              <View style={styles.callout}>
+                <Callout onPress={() => openEventDetails(event)}>
+                  <Text>{event.event_name}</Text>
+                </Callout>
+              </View>
+            </Marker>
+          );
+        })}
+
         <Marker
           coordinate={{
             latitude: 51.50572,
             longitude: 0.1276,
           }}
           pinColor="red"
+          title="Start location"
           draggable={true}
         ></Marker>
       </MapView>
       <ListButton />
+      {showEventDetails && selectedEvent && (
+        <EventDetails
+          event={selectedEvent}
+          onClose={() => setShowEventDetails(false)}
+        />
+      )}
     </SafeAreaView>
   );
 };
@@ -79,5 +132,15 @@ const styles = StyleSheet.create({
   map: {
     width: "100%",
     height: "100%",
+  },
+  name: {
+    fontSize: 10,
+  },
+  image: {
+    width: 50,
+    height: 50,
+  },
+  callout: {
+    flexDirection: "row",
   },
 });

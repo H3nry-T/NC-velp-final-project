@@ -1,9 +1,9 @@
 import { Text, TouchableOpacity, View, Modal, Pressable } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 
-export function EventDetails({ event, onClose }) {
+export function EventDetails({ event, onClose,}) {
   return (
-    <Modal animationType="slide" visible={true}>
+    <Modal animationType="slide" visible={true} >
       <View className=" bg-sky-200 flex-1 justify-center items-center">
         <View className="w-11/12 min-h-96 bg-white rounded-md shadow-lg">
           <TouchableOpacity onPress={onClose}>
