@@ -11,17 +11,17 @@ const AddEventScreen = () => {
   //Temp data inside to test, prior to getting data from actual form
   const [formData, setFormData] = useState({
     address: "90 loco way",
-    charity_id: 1,
+    charity_id: 0,
     date_time: new Timestamp(),
     description: "help lay out the tracks",
     email: "TrainStation@example.com",
-    event_count: 1,
+    event_count: 0,
     event_name: "Railway construction 👷‍♂️",
     organisation_name: "line foster & co",
     phone: "62124151",
     postcode: "TS10 2DZ",
     volunteers: [],
-    volunteer_needed: 1,
+    volunteer_needed: 0,
     website: "https://TrainStation.com/volunteering",
   });
   const navigation = useNavigation();
@@ -51,6 +51,8 @@ const AddEventScreen = () => {
           // console.log("parseInting the text input", textFromUsersFormInput);
           textFromUsersFormInput = parseInt(textFromUsersFormInput);
           setFormData({ ...formData, [fieldToUpdate]: textFromUsersFormInput });
+        } else if (textFromUsersFormInput === "") {
+          setFormData({ ...formData, [fieldToUpdate]: textFromUsersFormInput });
         }
       } else {
         // console.log("Leave as a string" + textFromUsersFormInput);
@@ -71,12 +73,20 @@ const AddEventScreen = () => {
     // console.log(checkIfStringCannotBeInteger(formData["event_count"]));
     console.log(formData);
     if (
-      Object.values(formData).some((value) => value === "") ||
       checkIfStringCannotBeInteger(formData["charity_id"]) ||
       checkIfStringCannotBeInteger(formData["event_count"]) ||
       checkIfStringCannotBeInteger(formData["volunteer_needed"])
     ) {
-      alert("form invalid");
+      alert(
+        "event count, charity id and number of volunteers needed must be an integer"
+      );
+    }
+
+    if (
+      Object.values(formData).some((value) => value === 0) ||
+      Object.values(formData).some((value) => value === "")
+    ) {
+      alert("Please complete the form");
     } else {
       createNewTestEvent(formData)
         .then(() => {
