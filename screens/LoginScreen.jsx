@@ -6,6 +6,8 @@ import {
   SafeAreaView,
   StyleSheet,
   View,
+  Image,
+  ImageBackground,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -28,19 +30,25 @@ const LoginScreen = () => {
 
   return (
     // <KeyboardAvoidingView behavior="padding">
-      <SafeAreaView>
-        <View className=" justify-center items-center h-full w-full">
-          <LoginForm
-            email={email}
-            setEmail={setEmail}
-            password={password}
-            setPassword={setPassword}
-          />
+    <SafeAreaView>
+     
+      <View className=" justify-center items-center h-full w-full">
+      <ImageBackground
+        source={require("../assets/logo.png")}
+        className="w-20 h-20"
+       
+      ></ImageBackground>
+        <LoginForm
+          email={email}
+          setEmail={setEmail}
+          password={password}
+          setPassword={setPassword}
+        />
 
-          <LoginButton email={email} password={password} />
-          <RegisterButton email={email} password={password} />
-        </View>
-      </SafeAreaView>
+        <LoginButton email={email} password={password} />
+        <RegisterButton email={email} password={password} />
+      </View>
+    </SafeAreaView>
     // </KeyboardAvoidingView>
   );
 };
