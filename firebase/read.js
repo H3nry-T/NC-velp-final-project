@@ -17,7 +17,7 @@ export async function getEventLocations() {
   const querySnapshot = await getDocs(collection(db, "test_events"));
   querySnapshot.forEach((doc) => {
     const eventdetails = doc.data()
-    eventdetails.id = doc.id
+    eventdetails.event_id = doc.id
     locations.push(eventdetails);
   });
   return locations;

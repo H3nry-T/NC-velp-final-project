@@ -47,7 +47,7 @@ const UserInformationOnRegisterTestEvent = {
 }
 
 export const registerOnEvent = async (event) => {
-  console.log(event.event_id);
+  console.log(event);
   try{
     const ref = doc(db, "test_events", event.event_id);   
     await updateDoc(ref, {
