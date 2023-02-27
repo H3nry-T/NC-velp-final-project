@@ -18,13 +18,13 @@ export default function SignupScreen() {
   const [charityFromApi, setCharityFromApi] = useState({});
 
   const [charityFormData, setCharityFormData] = useState({
-    reg_charity_number: "200027",
-    charity_name: "RURAL MINISTRIes",
-    email: "office@ruralministries.org.uk",
-    phone: "01763878539",
-    address_post_code: "sg8 1fs",
-    password: "123456",
-    password_again: "123456",
+    reg_charity_number: "",
+    charity_name: "",
+    email: "",
+    phone: "",
+    address_post_code: "",
+    password: "",
+    password_again: "",
   });
 
   const charityCollection = collection(db, "test_charity");

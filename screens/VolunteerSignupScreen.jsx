@@ -18,15 +18,15 @@ export default function VolunteerSignupScreen() {
   const [volunteers, setVolunteers] = useState([]);
 
   const [volunteerFormData, setVolunteerFormData] = useState({
-    username: "bigman",
-    first_name: "ting",
-    last_name: "chad",
-    email: "pro@gmail.com",
+    username: "",
+    first_name: "",
+    last_name: "",
+    email: "",
     date_of_birth: null,
-    phone: "07578996644",
-    post_code: "MA7 9AM",
-    password: "123456",
-    password_again: "123456",
+    phone: "",
+    post_code: "",
+    password: "",
+    password_again: "",
   });
 
   const [date, setDate] = useState(new Date());
