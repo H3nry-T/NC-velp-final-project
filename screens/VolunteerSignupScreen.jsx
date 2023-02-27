@@ -1,28 +1,21 @@
 import {
     View,
-    FlatList,
     TextInput,
     Text,
     SafeAreaView,
-    Switch,
     Button,
     ScrollView,
     TouchableOpacity,
-    Pressable,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import DatePicker from "@react-native-community/datetimepicker"
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import {
-    getFirestore,
     collection,
     addDoc,
     db,
     getDocs,
-    // doc,
-    // updateDoc,
-    // deleteDoc,
 } from "../firebase/firebase";
 
 export default function VolunteerSignupScreen() {
@@ -39,6 +32,36 @@ export default function VolunteerSignupScreen() {
         password: null,
         password_again: null,
     });
+
+    const [date, setDate] = useState(new Date());
+    const [mode, setMode] = useState("date");
+    const [show, setShow] = useState(false);
+    const [text, setText] = useState("empty");
+
+    const onChange = (selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS === "ios");
+        setDate(currentDate);
+
+        let tempDate = new Date(currentDate);
+        let fDate =
+            tempDate.getDate() +
+            "/" +
+            (tempDate.getMonth() + 1) +
+            "/" +
+            tempDate.getFullYear();
+        setText(fDate);
+
+        setVolunteerFormData({
+            ...volunteerFormData,
+            date_of_birth: fDate,
+        });
+    };
+
+    const showMode = (currentMode) => {
+        setShow(true);
+        setMode(currentMode);
+    };
 
     const navigation = useNavigation();
 
@@ -64,6 +87,15 @@ export default function VolunteerSignupScreen() {
             }
         }
 
+        //make sure first and last name is valid format
+        const nameRegex = /^[a-zA-Z]+(-[a-zA-Z]+)*$/;
+        if (
+            !nameRegex.test(volunteerFormData.first_name) ||
+            !nameRegex.test(volunteerFormData.last_name)
+        ) {
+            return alert(`Please make sure the name entered is valid`);
+        }
+
         //make sure username doesn't already exist in the collection
         for (const element of volunteers) {
             if (element.username === volunteerFormData.username) {
@@ -73,9 +105,43 @@ export default function VolunteerSignupScreen() {
             }
         }
 
+        //make sure email doesn't already exist in the collection
+        for (const element of volunteers) {
+            if (element.email === volunteerFormData.email) {
+                return alert(
+                    `This email is already in use. Please enter a new email`
+                );
+            }
+        }
+
+        //make sure phone doesn't already exist in the collection
+        for (const element of volunteers) {
+            if (element.phone === volunteerFormData.phone) {
+                return alert(
+                    `This phone number is already in use. Please enter a new number`
+                );
+            }
+        }
+
         //make sure password matches upon submission
         if (volunteerFormData.password !== volunteerFormData.password_again) {
             return alert(`Password does not match. Please try again`);
+        }
+
+        //make sure phone number is valid
+        const phoneRegex = /^(07|01)\d{9}$/;
+        if (
+            !phoneRegex.test(volunteerFormData.phone) ||
+            volunteerFormData.phone.length !== 11
+        ) {
+            return alert(`Please enter a valid UK number`);
+        }
+
+        //make sure post code is valid
+        const ukPostcodeRegex =
+            /^[A-Za-z]{1,2}\d{1,2}[A-Za-z]?\s?\d[A-Za-z]{2}$/;
+        if (!ukPostcodeRegex.test(volunteerFormData.post_code)) {
+            return alert(`Please enter a valid Post Code`);
         }
 
         //make sure volunteer inputs a valid email
@@ -85,20 +151,27 @@ export default function VolunteerSignupScreen() {
         }
 
         //make sure volunteer is 16 years and older
-        const now = new Date();
-        const dateString = now.toLocaleString("en-UK", {
-            year: "numeric",
-            month: "2-digit",
+        const nowDate = new Date();
+        const dateString = nowDate.toLocaleString("en-GB", {
             day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
         });
-    
-        const realDateString = dateString
+
+        const realDateString = dateString;
         const birthDateString = volunteerFormData.date_of_birth.toString();
 
-        const realDate = new Date(realDateString.split("/").reverse().join("-"));
-        const birthDate = new Date(birthDateString.split("/").reverse().join("-"));
+        const realDate = new Date(
+            realDateString.split("/").reverse().join("-")
+        );
 
-        const differenceMs = realDate.getTime() - birthDate.getTime();
+        const birthDate = () => {
+            const [day, month, year] = birthDateString.split("/");
+            const birthDate = new Date(year, month - 1, day);
+            return birthDate;
+        };
+
+        const differenceMs = realDate.getTime() - birthDate().getTime();
 
         const differenceYears = differenceMs / (1000 * 60 * 60 * 24 * 365.25);
 
@@ -106,7 +179,7 @@ export default function VolunteerSignupScreen() {
         if (differenceYears >= 16) {
             console.log("date2 is 16 years or more after date1");
         } else {
-                return alert(`You are younger than 16 years old`);
+            return alert(`You are younger than 16 years old`);
         }
 
         addDoc(volunteerCollection, volunteerFormData)
@@ -217,24 +290,24 @@ export default function VolunteerSignupScreen() {
                         </View>
                         <View className="mb-6">
                             <Text className="text-xl mb-2">Date of Birth</Text>
-                            <DatePicker
+                            <TouchableOpacity
                                 className="w-full border rounded p-4"
-                                date={volunteerFormData.date_of_birth}
-                                mode="date"
-                                placeholder="Date of Birth"
-                                format="DD-MM-YYYY"
-                                minDate="1900-01-01"
-                                maxDate={new Date()}
-                                value={new Date()}
-                                confirmBtnText="Confirm"
-                                cancelBtnText="Cancel"
-                                onDateChange={(date) => {
-                                    setVolunteerFormData({
-                                        ...volunteerFormData,
-                                        date_of_birth: date,
-                                    });
+                                onPress={() => {
+                                    showMode("date");
                                 }}
-                            />
+                            >
+                                <Text>{text}</Text>
+                            </TouchableOpacity>
+                            {show && (
+                                <DateTimePicker
+                                    testID="dateTimePicker"
+                                    value={date}
+                                    mode={mode}
+                                    is24Hour={true}
+                                    display="default"
+                                    onChange={onChange}
+                                />
+                            )}
                         </View>
                         <View className="mb-6">
                             <Text className="text-xl mb-2">Phone</Text>
