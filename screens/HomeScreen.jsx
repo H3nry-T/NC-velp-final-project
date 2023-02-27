@@ -26,7 +26,7 @@ const HomeScreen = () => {
   React.useLayoutEffect(() => {
     setOptions({
       header: () => (
-        <View style={{ flexDirection: "row", paddingTop: 25 }}>
+        <View style={{ flexDirection: "row", paddingTop: 45,  backgroundColor: "#87CEEB" }}>
           <ButtonWithOverlay></ButtonWithOverlay>
         </View>
       ),
@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    
   },
   button: {
     width: "30%",

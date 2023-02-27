@@ -62,9 +62,9 @@ export default function List() {
         presentationStyle="overFullScreen"
         className="flex min-h-full"
       >
-        <TouchableOpacity className="px-10 py-3 bg-sky-300">
+        <View className="px-10 py-3 bg-sky-300">
           <Text className="text-center mt-10">Event List</Text>
-        </TouchableOpacity>
+        </View>
         <ScrollView className="flex-1 ">
           {testEventCards && testEventCards}
         </ScrollView>
@@ -90,9 +90,9 @@ export default function List() {
         </View>
       </Modal>
 
-      <View className="flex-row">
-        <TouchableOpacity onPress={toggleEventList} className="pb-8">
-          <Text className="text-2xl">List</Text>
+      <View className="flex-row bg-sky-300 min-w-full rounded-t-3xl">
+        <TouchableOpacity onPress={toggleEventList} className="pb-8 min-w-full">
+          <Text className="text-2xl text-center">List</Text>
         </TouchableOpacity>
       </View>
       {showEventDetails && (
