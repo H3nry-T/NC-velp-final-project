@@ -26,13 +26,7 @@ const HomeScreen = () => {
   React.useLayoutEffect(() => {
     setOptions({
       header: () => (
-        <View
-          style={{
-            flexDirection: "row",
-            paddingTop: 45,
-            backgroundColor: "#87CEEB",
-          }}
-        >
+        <View className="flex-row" style={styles.transparentBG}>
           <ButtonWithOverlay></ButtonWithOverlay>
         </View>
       ),
@@ -62,7 +56,7 @@ const HomeScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView className="flex justify-center items-center flex-1">
       <MapView
         style={styles.map}
         initialRegion={{
@@ -116,6 +110,9 @@ const HomeScreen = () => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
+  transparentBG: {
+    backgroundColor: "rgba(0,0,0,0)",
+  },
   container: {
     display: "flex",
     flex: 1,

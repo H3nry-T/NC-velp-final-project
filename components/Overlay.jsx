@@ -1,5 +1,6 @@
 import React from 'react';
-import { Modal, View, Text, Button } from 'react-native';
+import { Modal, View, Text, TouchableOpacity } from 'react-native';
+import { StatusBar } from "expo-status-bar";
 import { SignoutButton } from './SignoutButton';
 import { useNavigation } from "@react-navigation/native";
 
@@ -9,8 +10,11 @@ const Overlay = ({ isVisible, message, onClose }) => {
   return (
     <Modal visible={isVisible}>
       <View>
+      <StatusBar hidden />
         <SignoutButton replace={replace}/>
-        <Button title="Close" onPress={onClose} />
+        <TouchableOpacity onPress={onClose} className="bg-sky-500">
+          <Text>Close</Text>
+          </TouchableOpacity>
       </View>
     </Modal>
   );
