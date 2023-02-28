@@ -15,7 +15,6 @@ const AddEventScreen = () => {
     date_time: new Timestamp(),
     description: "help lay out the tracks",
     email: "TrainStation@example.com",
-    event_count: 0,
     event_name: "Railway construction 👷‍♂️",
     organisation_name: "line foster & co",
     phone: "62124151",
@@ -33,7 +32,6 @@ const AddEventScreen = () => {
     return (textFromUsersFormInput) => {
       if (
         fieldToUpdate === "charity_id" ||
-        fieldToUpdate === "event_count" ||
         fieldToUpdate === "volunteer_needed"
       ) {
         /* 
@@ -66,26 +64,37 @@ const AddEventScreen = () => {
     /* need to add a check to make sure fields
      are valid & disable button + clear fields */
     // console.log(formData);
-    // console.log(checkIfStringCannotBeInteger(formData["event_count"]));
     if (
       checkIfStringCannotBeInteger(formData["charity_id"]) ||
-      checkIfStringCannotBeInteger(formData["event_count"]) ||
       checkIfStringCannotBeInteger(formData["volunteer_needed"])
     ) {
-      alert(
-        "event count, charity id and number of volunteers needed must be an integer"
-      );
+      alert("Charity ID and Number of volunteers needed must be an integer");
     }
 
     if (
-      Object.values(formData).some((value) => value === 0) ||
-      Object.values(formData).some((value) => value === "")
+      formData.address === "" ||
+      formData.address === 0 ||
+      formData.charity_id === 0 ||
+      formData.date_time === "" ||
+      formData.date_time === 0 ||
+      formData.description === "" ||
+      formData.description === 0 ||
+      formData.email === "" ||
+      formData.email === 0 ||
+      formData.event_name === "" ||
+      formData.event_name === 0 ||
+      formData.organisation_name === "" ||
+      formData.organisation_name === 0 ||
+      formData.phone === "" ||
+      formData.phone === 0 ||
+      formData.postcode === "" ||
+      formData.postcode === 0
     ) {
       alert("Please complete the form");
     } else {
       createNewTestEvent(formData)
         .then(() => {
-          alert("event created!");
+          alert("Event created!");
           navigation.replace("Home");
         })
         .catch((error) => {
@@ -125,11 +134,6 @@ const AddEventScreen = () => {
         label={"email"}
         formDataField={formData.email}
         onChange={handleUpdateFormDataOnClientSide("email")}
-      />
-      <FormInputFieldGeneric
-        label={"event count"}
-        formDataField={formData.event_count}
-        onChange={handleUpdateFormDataOnClientSide("event_count")}
       />
       <FormInputFieldGeneric
         label={"event name"}

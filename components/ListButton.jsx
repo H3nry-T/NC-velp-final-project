@@ -44,7 +44,6 @@ export default function List() {
   }
 
   useEffect(() => {
-    // getTestEvents().then((data) => {
     async function getData() {
       const results = await getTestEvents();
       setTestEventsData(results);
@@ -58,7 +57,6 @@ export default function List() {
       <Modal
         animationType="slide"
         visible={showList}
-        // transparent={true}
         presentationStyle="overFullScreen"
         className="flex min-h-full"
       >
