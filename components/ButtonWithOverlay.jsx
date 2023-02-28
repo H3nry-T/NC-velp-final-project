@@ -53,14 +53,14 @@ const ButtonWithOverlay = () => {
         </TouchableOpacity>
       )}
       {!isOverlayVisible && (
-        <Text className="bg-blue-300 flex-0 px-2 py-1 w-auto h-8 rounded-2xl my-1">
+        <Text className="bg-sky-200 flex-0 px-2 py-1 w-auto h-8 rounded-2xl my-1">
           {userTime}
         </Text>
       )}
       </View>
       {/* <View className='absolute left-0 right-0 top-0'> */}
-       <Image source={logo} className='w-3 h-3'/>
-        <Text className='absolute right-10 top-2 text-3xl'>Velp</Text>
+       <Image source={require('../assets/logo1.png')} className='w-20 h-20 absolute right-3 top-1 bg-sky-200 rounded-xl'/>
+        {/* <Text className='absolute right-10 top-2 text-3xl'>Velp</Text> */}
       {/* </View> */}
     </View>
   );
