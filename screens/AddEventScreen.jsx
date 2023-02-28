@@ -68,14 +68,27 @@ const AddEventScreen = () => {
       checkIfStringCannotBeInteger(formData["charity_id"]) ||
       checkIfStringCannotBeInteger(formData["volunteer_needed"])
     ) {
-      alert(
-        "Charity ID and Number of volunteers needed must be an integer"
-      );
+      alert("Charity ID and Number of volunteers needed must be an integer");
     }
 
     if (
-      Object.values(formData).some((value) => value === 0) ||
-      Object.values(formData).some((value) => value === "")
+      formData.address === "" ||
+      formData.address === 0 ||
+      formData.charity_id === 0 ||
+      formData.date_time === "" ||
+      formData.date_time === 0 ||
+      formData.description === "" ||
+      formData.description === 0 ||
+      formData.email === "" ||
+      formData.email === 0 ||
+      formData.event_name === "" ||
+      formData.event_name === 0 ||
+      formData.organisation_name === "" ||
+      formData.organisation_name === 0 ||
+      formData.phone === "" ||
+      formData.phone === 0 ||
+      formData.postcode === "" ||
+      formData.postcode === 0
     ) {
       alert("Please complete the form");
     } else {
