@@ -15,7 +15,6 @@ const AddEventScreen = () => {
     date_time: new Timestamp(),
     description: "help lay out the tracks",
     email: "TrainStation@example.com",
-    event_count: 0,
     event_name: "Railway construction 👷‍♂️",
     organisation_name: "line foster & co",
     phone: "62124151",
@@ -33,7 +32,6 @@ const AddEventScreen = () => {
     return (textFromUsersFormInput) => {
       if (
         fieldToUpdate === "charity_id" ||
-        fieldToUpdate === "event_count" ||
         fieldToUpdate === "volunteer_needed"
       ) {
         /* 
@@ -66,14 +64,12 @@ const AddEventScreen = () => {
     /* need to add a check to make sure fields
      are valid & disable button + clear fields */
     // console.log(formData);
-    // console.log(checkIfStringCannotBeInteger(formData["event_count"]));
     if (
       checkIfStringCannotBeInteger(formData["charity_id"]) ||
-      checkIfStringCannotBeInteger(formData["event_count"]) ||
       checkIfStringCannotBeInteger(formData["volunteer_needed"])
     ) {
       alert(
-        "event count, charity id and number of volunteers needed must be an integer"
+        "Charity ID and Number of volunteers needed must be an integer"
       );
     }
 
@@ -85,7 +81,7 @@ const AddEventScreen = () => {
     } else {
       createNewTestEvent(formData)
         .then(() => {
-          alert("event created!");
+          alert("Event created!");
           navigation.replace("Home");
         })
         .catch((error) => {
@@ -125,11 +121,6 @@ const AddEventScreen = () => {
         label={"email"}
         formDataField={formData.email}
         onChange={handleUpdateFormDataOnClientSide("email")}
-      />
-      <FormInputFieldGeneric
-        label={"event count"}
-        formDataField={formData.event_count}
-        onChange={handleUpdateFormDataOnClientSide("event_count")}
       />
       <FormInputFieldGeneric
         label={"event name"}
