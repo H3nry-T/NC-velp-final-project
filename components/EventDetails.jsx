@@ -3,7 +3,6 @@ import { Entypo } from "@expo/vector-icons";
 
 import { registerOnEvent, updateEvent } from "../firebase/update";
 import { deleteAnEvent } from "../firebase/delete";
-import { registerOnEvent } from "../firebase/update";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebase";

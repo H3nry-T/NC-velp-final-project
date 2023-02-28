@@ -15,6 +15,8 @@ import { useNavigation } from "@react-navigation/native";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import { auth } from "../firebase/firebase";
+import { onSnapshot } from "firebase/firestore";
+import { testEventsCollection } from "../firebase/read";
 
 export default function List() {
   const [showList, setShowList] = useState(false);
@@ -26,6 +28,14 @@ export default function List() {
 
   const [isCharity, setIsCharity] = useState(false);
   const [charities, setCharities] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(testEventsCollection, () => {
+      buildEventCards();
+    });
+
+    unsubscribe();
+  }, []);
 
   useEffect(() => {
     const getCharityList = async () => {
