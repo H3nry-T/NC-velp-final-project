@@ -168,7 +168,7 @@ export default function VolunteerSignupScreen() {
 
     // Check if realDate is 16 years or more after birthDate
     if (differenceYears >= 16) {
-      console.log("date2 is 16 years or more after date1");
+      //console.log("date2 is 16 years or more after date1");
     } else {
       return alert(`You are younger than 16 years old`);
     }
@@ -187,7 +187,7 @@ export default function VolunteerSignupScreen() {
         addDoc(volunteerCollection, volunteerFormData)
           .then((docRef) => {
             getVolunteerList();
-            console.log("Document written with ID: ", docRef.id);
+            //console.log("Document written with ID: ", docRef.id);
           })
           .catch((e) => {
             alert(`${e}`);
@@ -197,7 +197,7 @@ export default function VolunteerSignupScreen() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        console.error(errorCode, errorMessage);
         alert(`${errorCode}, ${errorMessage}`);
       });
   };
@@ -230,7 +230,7 @@ export default function VolunteerSignupScreen() {
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity className="w-1/2">
-                    <View className="flex-1 flex justify-center items-center border-b-4 border-blue-500 border-blue-600 transform scale-105">
+                    <View className="flex-1 flex justify-center items-center border-b-4 border-blue-600 transform scale-105">
                         <Text className="font-bold">Volunteer</Text>
                     </View>
                 </TouchableOpacity>

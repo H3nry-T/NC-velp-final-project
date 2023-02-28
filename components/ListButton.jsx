@@ -44,7 +44,7 @@ export default function List() {
           setIsCharity(!!charity);
         }
       } catch (error) {
-        console.log("Error getting documents: ", error);
+        console.error("Error getting documents: ", error);
       }
     };
     getCharityList();

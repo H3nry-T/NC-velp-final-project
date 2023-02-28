@@ -12,15 +12,12 @@ import {
 import { auth } from "./firebase";
 
 const db = getFirestore();
-// ---------------
 
 //1 STEP CHANGE DATA "ANY"
 const myupdate = async () => {
   try {
     const ref = doc(db, "test_events", "zbj87Ysm5i5vZA7GEFzb");
     await updateDoc(ref, { allo: "update@update.com" });
-    
-    console.log("Document updated successfully");
   } catch (e) {
     console.error("Error updating document:", e);
   }
@@ -36,9 +33,9 @@ const test = () => {
     return unsubscribe;
   }, []);
 };
-//GET USERNAME FROM USER WHEN IS LOGED IN
+//GET USERNAME FROM USER WHEN IS LOGGED IN
 
-// //WE ADD USER IN THE EVENT
+//WE ADD USER IN THE EVENT
 
 export const registerOnEvent = (event) => {
   const authUser = auth.currentUser;
@@ -52,11 +49,10 @@ export const registerOnEvent = (event) => {
     volunteers: arrayUnion(UserInformationOnRegisterTestEvent),
   })
     .then(() => {
-      alert(`${authUser.email} registered successfully.`)
+      alert(`${authUser.email} registered successfully.`);
     })
     .catch((e) => {
       console.error("Error updating document:", e);
     });
 };
 
-//increment the number of people in the event
