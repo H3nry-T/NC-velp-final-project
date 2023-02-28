@@ -26,8 +26,10 @@ export function errorCheckOnSubmit(
     } //check that the input charity number matches that which is found in gov website
 
     if (
+        !charityFromApi ||
+        !charityFromApi.reg_charity_number ||
         charityFormData.reg_charity_number.toString() !==
-        charityFromApi.reg_charity_number.toString()
+            charityFromApi.reg_charity_number.toString()
     ) {
         return alert(
             "This Charity Number doesn't exist. Please input a Charity Number which exists"
