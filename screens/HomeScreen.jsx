@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   Modal,
   Image,
+  StatusBar
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -58,6 +59,7 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView className="flex justify-center items-center flex-1">
+      <StatusBar hidden />
       <MapView
         style={styles.map}
         initialRegion={{

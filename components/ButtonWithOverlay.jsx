@@ -36,6 +36,7 @@ const ButtonWithOverlay = () => {
 
   return (
     <View className="flex-row  items-center justify-between w-full h-full" style={styles.transparentBG}>
+      {isOverlayVisible && (<View className='bg-white absolute top-0 left-0 width-full height-full'><Text>Velp</Text></View>)}
       <StatusBar hidden />
       <Overlay isVisible={isOverlayVisible} onClose={handleCloseOverlay} />
 
@@ -47,7 +48,7 @@ const ButtonWithOverlay = () => {
         className="rounded-full w-20 h-20 my-1 ml-1"
         style={styles.transparentBG}
         >
-          <Text className="bg-sky-500 px-5 py-8 rounded-full  font-bold">
+          <Text className="bg-sky-500 px-5 py-8 rounded-full  font-bold text-white">
             MENU
           </Text>
         </TouchableOpacity>
