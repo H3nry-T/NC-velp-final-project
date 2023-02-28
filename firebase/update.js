@@ -19,6 +19,7 @@ const myupdate = async () => {
   try {
     const ref = doc(db, "test_events", "zbj87Ysm5i5vZA7GEFzb");
     await updateDoc(ref, { allo: "update@update.com" });
+    
     console.log("Document updated successfully");
   } catch (e) {
     console.error("Error updating document:", e);
@@ -39,22 +40,23 @@ const test = () => {
 
 // //WE ADD USER IN THE EVENT
 
-export const registerOnEvent = async (event) => {
+export const registerOnEvent = (event) => {
   const authUser = auth.currentUser;
   const UserInformationOnRegisterTestEvent = {
     email: authUser.email,
     userId: authUser.uid,
   };
-  console.log(auth);
-  try {
-    const ref = doc(db, "test_events", event.event_id);
-    await updateDoc(ref, {
-      volunteers: arrayUnion(UserInformationOnRegisterTestEvent),
-    });
+  const ref = doc(db, "test_events", event.event_id);
 
-    console.log("Document updated successfully");
-  } catch (e) {
-    console.error("Error updating document:", e);
-  }
+  updateDoc(ref, {
+    volunteers: arrayUnion(UserInformationOnRegisterTestEvent),
+  })
+    .then(() => {
+      alert(`${authUser.email} registered successfully.`)
+    })
+    .catch((e) => {
+      console.error("Error updating document:", e);
+    });
 };
+
 //increment the number of people in the event
