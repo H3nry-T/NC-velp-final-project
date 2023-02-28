@@ -10,21 +10,9 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { auth } from "./firebase";
+import { useNavigation } from "@react-navigation/native";
 
 const db = getFirestore();
-// ---------------
-
-//1 STEP CHANGE DATA "ANY"
-const myupdate = async () => {
-  try {
-    const ref = doc(db, "test_events", "zbj87Ysm5i5vZA7GEFzb");
-    await updateDoc(ref, { allo: "update@update.com" });
-    console.log("Document updated successfully");
-  } catch (e) {
-    console.error("Error updating document:", e);
-  }
-};
-
 const test = () => {
   const [user, setUser] = useState(null);
   useEffect(() => {
@@ -35,9 +23,7 @@ const test = () => {
     return unsubscribe;
   }, []);
 };
-//GET USERNAME FROM USER WHEN IS LOGED IN
 
-// //WE ADD USER IN THE EVENT
 
 export const registerOnEvent = async (event) => {
   const authUser = auth.currentUser;
@@ -57,4 +43,11 @@ export const registerOnEvent = async (event) => {
     console.error("Error updating document:", e);
   }
 };
-//increment the number of people in the event
+
+
+
+
+export const updateEvent = async (event) => {
+console.log("update event ");
+
+};
