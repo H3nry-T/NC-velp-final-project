@@ -29,18 +29,6 @@ export default function SignupScreen() {
 
   const navigation = useNavigation();
 
-  // useEffect(() => {
-  //   if (charityFormData.reg_charity_number) {
-  //     getCharities(charityFormData.reg_charity_number)
-  //       .then((charities) => {
-  //         setCharityFromApi(charities);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }
-  // }, [charityFormData.reg_charity_number]);
-
   const getCharityList = () => {
     getDocs(charityCollection)
       .then((querySnapshot) => {

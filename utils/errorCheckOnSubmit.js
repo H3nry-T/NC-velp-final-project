@@ -118,7 +118,6 @@ export function errorCheckOnSubmit(
         charityFormData.password
     )
         .then((userCredential) => {
-            // Signed in
             const user = userCredential.user;
             alert(`Registered as ${user.email}`);
         })
