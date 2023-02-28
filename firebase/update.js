@@ -51,10 +51,9 @@ export const registerOnEvent = async (event) => {
     await updateDoc(ref, {
       volunteers: arrayUnion(UserInformationOnRegisterTestEvent),
     });
-
-    console.log("Document updated successfully");
+    alert(`${authUser.email} registered successfully.`)
   } catch (e) {
+    alert(`Error in registration.`)
     console.error("Error updating document:", e);
   }
 };
-//increment the number of people in the event
