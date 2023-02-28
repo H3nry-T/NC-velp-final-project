@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import { auth } from "../firebase/firebase";
+import { formatTimeStamp } from "./EventCard";
 
 export function EventDetails({ event, onClose }) {
   const [isVolunteer, setIsVolunteer] = useState(false);
@@ -45,9 +46,7 @@ export function EventDetails({ event, onClose }) {
           <View className="p-3">
             <Text className="text-2xl font-bold ml-3">{event.event_name}</Text>
             <Text className="pt-4 ml-3">{event.description}</Text>
-            <Text className="pt-4 ml-3">
-              When: {event.date_time.toDate().toLocaleString()}
-            </Text>
+            <Text className="pt-4 ml-3">When: {formatTimeStamp(event)}</Text>
             <Text className="pt-4 ml-3">Location: {event.address}</Text>
             <Text className="pt-4 ml-3">
               Organised by: {event.organisation_name.substring(0, 45)}
