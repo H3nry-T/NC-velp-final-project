@@ -34,8 +34,9 @@ export default function App() {
                         options={{ headerShown: false }}
                         name="Login"
                         component={LoginScreen}
+            
                     />
-                    <Stack.Screen name="Home" component={HomeScreen} />
+                    <Stack.Screen name="Home" component={HomeScreen} options={{headerShadowVisible: false, headerTransparent: true}} />
                     <Stack.Screen name="Map" component={Map} />
                     <Stack.Screen name="AddEvent" component={AddEventScreen} />
                     <Stack.Screen
@@ -57,7 +58,7 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff",
+        backgroundColor: "rgba(0,0,0,0)",
         alignItems: "center",
         justifyContent: "center",
     },

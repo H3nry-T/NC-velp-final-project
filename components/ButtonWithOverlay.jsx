@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, StyleSheet} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, Image} from "react-native";
 import { logo } from "../assets/logo1.png";
 import Overlay from "./Overlay";
 
@@ -35,26 +35,40 @@ const ButtonWithOverlay = () => {
   };
 
   return (
-      <View className="flex-row justify-between" style={styles.transparentBG}>
-        <StatusBar hidden />
-        <Overlay isVisible={isOverlayVisible} onClose={handleCloseOverlay} />
-        {/* <ImageBackground source={velpLogo} className='bg-amber-500 text-white'> */}
+    <View className="flex-row  items-center justify-between w-full h-full" style={styles.transparentBG}>
+      <StatusBar hidden />
+      <Overlay isVisible={isOverlayVisible} onClose={handleCloseOverlay} />
 
+    <View className="flex-row">
+
+      {!isOverlayVisible && (
         <TouchableOpacity
-          onPress={handleOpenOverlay}
-          className="rounded-full w-20 h-20"
+        onPress={handleOpenOverlay}
+        className="rounded-full w-20 h-20 my-1 ml-1"
+        style={styles.transparentBG}
         >
-          <Text className="bg-sky-500 px-5 py-7 rounded-full  font-bold">MENU</Text>
+          <Text className="bg-sky-500 px-5 py-8 rounded-full  font-bold">
+            MENU
+          </Text>
         </TouchableOpacity>
-        <Text className='bg-blue-300 flex-0 px-2 py-1 w-auto h-8 rounded-2xl'>{userTime}</Text>
-        {/* </ImageBackground> */}
+      )}
+      {!isOverlayVisible && (
+        <Text className="bg-blue-300 flex-0 px-2 py-1 w-auto h-8 rounded-2xl my-1">
+          {userTime}
+        </Text>
+      )}
       </View>
+      {/* <View className='absolute left-0 right-0 top-0'> */}
+       <Image source={logo} className='w-3 h-3'/>
+        <Text className='absolute right-10 top-2 text-3xl'>Velp</Text>
+      {/* </View> */}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   transparentBG: {
-    backgroundColor: 'rgba(0,0,0,0)'
-  }
-})
+    backgroundColor: "rgba(0,0,0,0)",
+  },
+});
 export default ButtonWithOverlay;

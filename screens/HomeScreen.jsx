@@ -27,9 +27,10 @@ const HomeScreen = () => {
     setOptions({
       header: () => (
         <View className="flex-row" style={styles.transparentBG}>
-          <ButtonWithOverlay></ButtonWithOverlay>
+            <ButtonWithOverlay />
         </View>
       ),
+
     });
   }, [setOptions]);
 
