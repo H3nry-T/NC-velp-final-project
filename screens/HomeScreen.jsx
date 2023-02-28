@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   Modal,
   Image,
+  StatusBar
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -26,16 +27,11 @@ const HomeScreen = () => {
   React.useLayoutEffect(() => {
     setOptions({
       header: () => (
-        <View
-          style={{
-            flexDirection: "row",
-            paddingTop: 45,
-            backgroundColor: "#87CEEB",
-          }}
-        >
-          <ButtonWithOverlay></ButtonWithOverlay>
+        <View className="flex-row" style={styles.transparentBG}>
+            <ButtonWithOverlay />
         </View>
       ),
+
     });
   }, [setOptions]);
 
@@ -62,7 +58,8 @@ const HomeScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView className="flex justify-center items-center flex-1">
+      <StatusBar hidden />
       <MapView
         style={styles.map}
         initialRegion={{
@@ -116,6 +113,9 @@ const HomeScreen = () => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
+  transparentBG: {
+    backgroundColor: "rgba(0,0,0,0)",
+  },
   container: {
     display: "flex",
     flex: 1,
