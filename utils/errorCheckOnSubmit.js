@@ -1,14 +1,24 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, auth } from "../firebase/firebase";
+import { getCharities } from "./api";
 
 export function errorCheckOnSubmit(
     charityFromApi,
+    setCharityFromApi,
     charities,
     charityCollection,
     getCharityList,
     setCharities,
     charityFormData
 ) {
+    getCharities(charityFormData.reg_charity_number)
+        .then((charities) => {
+            setCharityFromApi(charities);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
     const requiredFields = [
         "reg_charity_number",
         "charity_name",
