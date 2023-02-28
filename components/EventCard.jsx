@@ -1,8 +1,13 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { EventDetails } from "./EventDetails";
 import { useState } from "react";
 
-export default function EventCard({ event, setSelectedEvent, setShowEventDetails, showEventDetails }) {
+export default function EventCard({
+  event,
+  setSelectedEvent,
+  setShowEventDetails,
+  showEventDetails,
+}) {
   function handlePress() {
     setSelectedEvent(event);
     setShowEventDetails(!showEventDetails);
@@ -20,4 +25,14 @@ export default function EventCard({ event, setSelectedEvent, setShowEventDetails
       </View>
     </View>
   );
+}
+
+{
+  /* <FlatList
+  data={event.volunteers}
+  renderItem={({ volunteer }) => {
+    return <Text>{volunteer}</Text>;
+  }}
+  keyExtractor={(volunteer) => volunteer.userId}
+></FlatList> */
 }
