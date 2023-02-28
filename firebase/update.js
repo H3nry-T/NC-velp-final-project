@@ -19,6 +19,7 @@ const myupdate = async () => {
   try {
     const ref = doc(db, "test_events", "zbj87Ysm5i5vZA7GEFzb");
     await updateDoc(ref, { allo: "update@update.com" });
+    
     console.log("Document updated successfully");
   } catch (e) {
     console.error("Error updating document:", e);
@@ -51,7 +52,7 @@ export const registerOnEvent = (event) => {
     volunteers: arrayUnion(UserInformationOnRegisterTestEvent),
   })
     .then(() => {
-      console.log("Document updated successfully");
+      alert(`${authUser.email} registered successfully.`)
     })
     .catch((e) => {
       console.error("Error updating document:", e);
