@@ -12,48 +12,44 @@ import { getTestEvents } from "../firebase/read";
 import EventCard from "./EventCard";
 import { EventDetails } from "./EventDetails";
 import { useNavigation } from "@react-navigation/native";
-// import { collection, getDocs } from "firebase/firestore";
-// import { db } from "../firebase/firebase";
-// import { auth } from "../firebase/firebase";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase/firebase";
+import { auth } from "../firebase/firebase";
 
 export default function List() {
   const [showList, setShowList] = useState(false);
-  let   [testEventsData, setTestEventsData] = useState([]);
+  let [testEventsData, setTestEventsData] = useState([]);
   const [testEventCards, setTestEventCards] = useState([]);
   const [showEventDetails, setShowEventDetails] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const navigation = useNavigation();
 
-  // const [charities, setCharities] = useState([]);
-  //   const [isCharity, setIsCharity] = useState(false);
+  const [isCharity, setIsCharity] = useState(false);
+  const [charities, setCharities] = useState([]);
 
-  //   const getCharityList = () => {
-  //       getDocs(collection(db, "test_charity"))
-  //           .then((querySnapshot) => {
-  //               return querySnapshot.docs.map((doc) => ({
-  //                   ...doc.data(),
-  //                   id: doc.id,
-  //               }));
-  //           })
-  //           .then((charityListArray) => {
-  //               setCharities(charityListArray);
-  //           })
-  //           .catch((error) => {
-  //               console.log("Error getting documents: ", error);
-  //           });
-  //   };
-  //   getCharityList();
-  //   const authUser = auth.currentUser;
+  useEffect(() => {
+    const getCharityList = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "test_charity"));
+        const charityListArray = querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setCharities(charityListArray);
+        const authUser = auth.currentUser;
+        const charity = charityListArray.find(
+          (charity) => charity.email === authUser.email
+        );
+        if (charity) {
+          setIsCharity(!!charity);
+        }
+      } catch (error) {
+        console.log("Error getting documents: ", error);
+      }
+    };
+    getCharityList();
+  }, []);
 
-  //   for (const charity of charities) {
-  //       if (charity.email === authUser.email) {
-  //           return setIsCharity(true);
-  //       } else {
-  //         return setIsCharity(false)
-  //       }
-  //   }
-
-    // console.log(isCharity);
   function toggleEventList() {
     setShowList(!showList);
   }
@@ -101,18 +97,18 @@ export default function List() {
           {testEventCards && testEventCards}
         </ScrollView>
         <View className=" flex-row justify-evenly items-center my-5">
-        {/* {isCharity && ( */}
-          <TouchableOpacity className="text-center px-6 py-2 bg-cyan-800 rounded-xl">
-            <Text
-              onPress={() => {
-                return navigation.navigate("AddEvent");
-              }}
-              className="text-center text-white font-extrabold text-xl"
-            >
-              Add Event
-            </Text>
-          </TouchableOpacity>
-        {/* )} */}
+          {isCharity && (
+            <TouchableOpacity className="text-center px-6 py-2 bg-cyan-800 rounded-xl">
+              <Text
+                onPress={() => {
+                  return navigation.navigate("AddEvent");
+                }}
+                className="text-center text-white font-extrabold text-xl"
+              >
+                Add Event
+              </Text>
+            </TouchableOpacity>
+          )}
           <TouchableOpacity className="text-center px-6 py-2 bg-cyan-800 rounded-xl">
             <Text
               onPress={toggleEventList}
@@ -130,7 +126,7 @@ export default function List() {
         </TouchableOpacity>
       </View>
       {showEventDetails && (
-        <EventDetails 
+        <EventDetails
           event={selectedEvent}
           onClose={() => setShowEventDetails(false)}
         />
