@@ -17,36 +17,36 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 export default function VolunteerSignupScreen() {
     const [volunteers, setVolunteers] = useState([]);
 
-    const [volunteerFormData, setVolunteerFormData] = useState({
-        username: "",
-        first_name: "",
-        last_name: "",
-        email: "",
-        date_of_birth: null,
-        phone: "",
-        post_code: "",
-        password: "",
-        password_again: "",
-    });
+  const [volunteerFormData, setVolunteerFormData] = useState({
+    username: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    date_of_birth: null,
+    phone: "",
+    post_code: "",
+    password: "",
+    password_again: "",
+  });
 
-    const [date, setDate] = useState(new Date());
-    const [mode, setMode] = useState("date");
-    const [show, setShow] = useState(false);
-    const [text, setText] = useState("empty");
+  const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState("date");
+  const [show, setShow] = useState(false);
+  const [text, setText] = useState("empty");
 
-    const onChange = (event, selectedDate) => {
-        const currentDate = selectedDate || date;
-        setShow(Platform.OS === "ios");
-        setDate(currentDate);
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === "ios");
+    setDate(currentDate);
 
-        let tempDate = new Date(currentDate);
-        let fDate =
-            tempDate.getDate() +
-            "/" +
-            (tempDate.getMonth() + 1) +
-            "/" +
-            tempDate.getFullYear();
-        setText(fDate);
+    let tempDate = new Date(currentDate);
+    let fDate =
+      tempDate.getDate() +
+      "/" +
+      (tempDate.getMonth() + 1) +
+      "/" +
+      tempDate.getFullYear();
+    setText(fDate);
 
         setVolunteerFormData({
             ...volunteerFormData,
@@ -54,172 +54,169 @@ export default function VolunteerSignupScreen() {
         });
     };
 
-    const showMode = (currentMode) => {
-        setShow(true);
-        setMode(currentMode);
-    };
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
 
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
-    const volunteerCollection = collection(db, "test_volunteer");
+  const volunteerCollection = collection(db, "test_volunteer");
 
-    const handleSubmit = () => {
-        const requiredFields = [
-            "username",
-            "first_name",
-            "last_name",
-            "email",
-            "date_of_birth",
-            "phone",
-            "post_code",
-            "password",
-            "password_again",
-        ];
+  const handleSubmit = () => {
+    const requiredFields = [
+      "username",
+      "first_name",
+      "last_name",
+      "email",
+      "date_of_birth",
+      "phone",
+      "post_code",
+      "password",
+      "password_again",
+    ];
 
-        //make sure fields are all present in order to submit
-        for (const field of requiredFields) {
-            if (!volunteerFormData[field]) {
-                return alert(`Please fill in ${field.replace("_", " ")}`);
-            }
-        }
+    //make sure fields are all present in order to submit
+    for (const field of requiredFields) {
+      if (!volunteerFormData[field]) {
+        return alert(`Please fill in ${field.replace("_", " ")}`);
+      }
+    }
 
-        //make sure first and last name is valid format
-        const nameRegex = /^[a-zA-Z]+(-[a-zA-Z]+)*$/;
-        if (
-            !nameRegex.test(volunteerFormData.first_name) ||
-            !nameRegex.test(volunteerFormData.last_name)
-        ) {
-            return alert(`Please make sure the name entered is valid`);
-        }
+    //make sure first and last name is valid format
+    const nameRegex = /^[a-zA-Z]+(-[a-zA-Z]+)*$/;
+    if (
+      !nameRegex.test(volunteerFormData.first_name) ||
+      !nameRegex.test(volunteerFormData.last_name)
+    ) {
+      return alert(`Please make sure the name entered is valid`);
+    }
 
-        //make sure username doesn't already exist in the collection
-        for (const element of volunteers) {
-            if (element.username === volunteerFormData.username) {
-                return alert(
-                    `This username already exists. Please enter a new username`
-                );
-            }
-        }
-
-        //make sure email doesn't already exist in the collection
-        for (const element of volunteers) {
-            if (element.email === volunteerFormData.email) {
-                return alert(
-                    `This email is already in use. Please enter a new email`
-                );
-            }
-        }
-
-        //make sure phone doesn't already exist in the collection
-        for (const element of volunteers) {
-            if (element.phone === volunteerFormData.phone) {
-                return alert(
-                    `This phone number is already in use. Please enter a new number`
-                );
-            }
-        }
-
-        //make sure password matches upon submission
-        if (volunteerFormData.password !== volunteerFormData.password_again) {
-            return alert(`Password does not match. Please try again`);
-        }
-
-        //make sure phone number is valid
-        const phoneRegex = /^(07|01)\d{9}$/;
-        if (
-            !phoneRegex.test(volunteerFormData.phone) ||
-            volunteerFormData.phone.length !== 11
-        ) {
-            return alert(`Please enter a valid UK number`);
-        }
-
-        //make sure post code is valid
-        const ukPostcodeRegex =
-            /^[A-Za-z]{1,2}\d{1,2}[A-Za-z]?\s?\d[A-Za-z]{2}$/;
-        if (!ukPostcodeRegex.test(volunteerFormData.post_code)) {
-            return alert(`Please enter a valid Post Code`);
-        }
-
-        //make sure volunteer inputs a valid email
-        const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-        if (!emailPattern.test(volunteerFormData.email)) {
-            return alert(`Please enter a valid email address`);
-        }
-
-        //make sure volunteer is 16 years and older
-        const nowDate = new Date();
-        const dateString = nowDate.toLocaleString("en-GB", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-        });
-
-        const realDateString = dateString;
-        const birthDateString = volunteerFormData.date_of_birth.toString();
-
-        const realDate = new Date(
-            realDateString.split("/").reverse().join("-")
+    //make sure username doesn't already exist in the collection
+    for (const element of volunteers) {
+      if (element.username === volunteerFormData.username) {
+        return alert(
+          `This username already exists. Please enter a new username`
         );
+      }
+    }
 
-        const birthDate = () => {
-            const [day, month, year] = birthDateString.split("/");
-            const birthDate = new Date(year, month - 1, day);
-            return birthDate;
-        };
+    //make sure email doesn't already exist in the collection
+    for (const element of volunteers) {
+      if (element.email === volunteerFormData.email) {
+        return alert(`This email is already in use. Please enter a new email`);
+      }
+    }
 
-        const differenceMs = realDate.getTime() - birthDate().getTime();
+    //make sure phone doesn't already exist in the collection
+    for (const element of volunteers) {
+      if (element.phone === volunteerFormData.phone) {
+        return alert(
+          `This phone number is already in use. Please enter a new number`
+        );
+      }
+    }
 
-        const differenceYears = differenceMs / (1000 * 60 * 60 * 24 * 365.25);
+    //make sure password matches upon submission
+    if (volunteerFormData.password !== volunteerFormData.password_again) {
+      return alert(`Password does not match. Please try again`);
+    }
 
-        // Check if realDate is 16 years or more after birthDate
-        if (differenceYears >= 16) {
-            console.log("date2 is 16 years or more after date1");
-        } else {
-            return alert(`You are younger than 16 years old`);
-        }
+    //make sure phone number is valid
+    const phoneRegex = /^(07|01)\d{9}$/;
+    if (
+      !phoneRegex.test(volunteerFormData.phone) ||
+      volunteerFormData.phone.length !== 11
+    ) {
+      return alert(`Please enter a valid UK number`);
+    }
 
-        createUserWithEmailAndPassword(
-            auth,
-            volunteerFormData.email,
-            volunteerFormData.password
-        )
-            .then((userCredential) => {
-                // Signed in
-                const user = userCredential.user;
-                // alert(`Registered as ${user.email}`);
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode, errorMessage);
-                alert(`${errorCode}, ${errorMessage}`);
-            });
+    //make sure post code is valid
+    const ukPostcodeRegex = /^[A-Za-z]{1,2}\d{1,2}[A-Za-z]?\s?\d[A-Za-z]{2}$/;
+    if (!ukPostcodeRegex.test(volunteerFormData.post_code)) {
+      return alert(`Please enter a valid Post Code`);
+    }
 
-        addDoc(volunteerCollection, volunteerFormData)
-            .then((docRef) => {
-                getVolunteerList();
-                console.log("Document written with ID: ", docRef.id);
-            })
-            .catch((e) => {
-                console.error("Error adding document: ", e);
-            });
+    //make sure volunteer inputs a valid email
+    const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    if (!emailPattern.test(volunteerFormData.email)) {
+      return alert(`Please enter a valid email address`);
+    }
+
+    //make sure volunteer is 16 years and older
+    const nowDate = new Date();
+    const dateString = nowDate.toLocaleString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+
+    const realDateString = dateString;
+    const birthDateString = volunteerFormData.date_of_birth.toString();
+
+    const realDate = new Date(realDateString.split("/").reverse().join("-"));
+
+    const birthDate = () => {
+      const [day, month, year] = birthDateString.split("/");
+      const birthDate = new Date(year, month - 1, day);
+      return birthDate;
     };
 
-    const getVolunteerList = () => {
-        getDocs(volunteerCollection)
-            .then((querySnapshot) => {
-                return querySnapshot.docs.map((doc) => ({
-                    ...doc.data(),
-                    id: doc.id,
-                }));
-            })
-            .then((volunteerListArray) => {
-                setVolunteers(volunteerListArray);
-            })
-            .catch((error) => {
-                console.log("Error getting documents: ", error);
-            });
-        };
+    const differenceMs = realDate.getTime() - birthDate().getTime();
+
+    const differenceYears = differenceMs / (1000 * 60 * 60 * 24 * 365.25);
+
+    // Check if realDate is 16 years or more after birthDate
+    if (differenceYears >= 16) {
+      console.log("date2 is 16 years or more after date1");
+    } else {
+      return alert(`You are younger than 16 years old`);
+    }
+
+    createUserWithEmailAndPassword(
+      auth,
+      volunteerFormData.email,
+      volunteerFormData.password
+    )
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        alert(`Registered as ${user.email}`);
+        delete volunteerFormData.password;
+        delete volunteerFormData.password_again;
+        addDoc(volunteerCollection, volunteerFormData)
+          .then((docRef) => {
+            getVolunteerList();
+            console.log("Document written with ID: ", docRef.id);
+          })
+          .catch((e) => {
+            alert(`${e}`);
+            console.error("Error adding document: ", e);
+          });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        alert(`${errorCode}, ${errorMessage}`);
+      });
+  };
+
+  const getVolunteerList = () => {
+    getDocs(volunteerCollection)
+      .then((querySnapshot) => {
+        return querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+      })
+      .then((volunteerListArray) => {
+        setVolunteers(volunteerListArray);
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
+  };
 
     return (
         <SafeAreaView className="h-full">

@@ -86,7 +86,6 @@ export default function List() {
       <Modal
         animationType="slide"
         visible={showList}
-        // transparent={true}
         presentationStyle="overFullScreen"
         className="flex min-h-full"
       >
