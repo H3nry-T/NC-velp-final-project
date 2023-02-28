@@ -27,12 +27,3 @@ export default function EventCard({
   );
 }
 
-{
-  /* <FlatList
-  data={event.volunteers}
-  renderItem={({ volunteer }) => {
-    return <Text>{volunteer}</Text>;
-  }}
-  keyExtractor={(volunteer) => volunteer.userId}
-></FlatList> */
-}

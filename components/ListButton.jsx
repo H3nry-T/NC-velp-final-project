@@ -12,6 +12,9 @@ import { getTestEvents } from "../firebase/read";
 import EventCard from "./EventCard";
 import { EventDetails } from "./EventDetails";
 import { useNavigation } from "@react-navigation/native";
+// import { collection, getDocs } from "firebase/firestore";
+// import { db } from "../firebase/firebase";
+// import { auth } from "../firebase/firebase";
 
 export default function List() {
   const [showList, setShowList] = useState(false);
@@ -21,6 +24,36 @@ export default function List() {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const navigation = useNavigation();
 
+  // const [charities, setCharities] = useState([]);
+  //   const [isCharity, setIsCharity] = useState(false);
+
+  //   const getCharityList = () => {
+  //       getDocs(collection(db, "test_charity"))
+  //           .then((querySnapshot) => {
+  //               return querySnapshot.docs.map((doc) => ({
+  //                   ...doc.data(),
+  //                   id: doc.id,
+  //               }));
+  //           })
+  //           .then((charityListArray) => {
+  //               setCharities(charityListArray);
+  //           })
+  //           .catch((error) => {
+  //               console.log("Error getting documents: ", error);
+  //           });
+  //   };
+  //   getCharityList();
+  //   const authUser = auth.currentUser;
+
+  //   for (const charity of charities) {
+  //       if (charity.email === authUser.email) {
+  //           return setIsCharity(true);
+  //       } else {
+  //         return setIsCharity(false)
+  //       }
+  //   }
+
+    // console.log(isCharity);
   function toggleEventList() {
     setShowList(!showList);
   }
@@ -44,7 +77,6 @@ export default function List() {
   }
 
   useEffect(() => {
-    // getTestEvents().then((data) => {
     async function getData() {
       const results = await getTestEvents();
       setTestEventsData(results);
@@ -69,6 +101,7 @@ export default function List() {
           {testEventCards && testEventCards}
         </ScrollView>
         <View className=" flex-row justify-evenly items-center my-5">
+        {/* {isCharity && ( */}
           <TouchableOpacity className="text-center px-6 py-2 bg-cyan-800 rounded-xl">
             <Text
               onPress={() => {
@@ -79,6 +112,7 @@ export default function List() {
               Add Event
             </Text>
           </TouchableOpacity>
+        {/* )} */}
           <TouchableOpacity className="text-center px-6 py-2 bg-cyan-800 rounded-xl">
             <Text
               onPress={toggleEventList}
