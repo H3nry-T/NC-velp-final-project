@@ -181,22 +181,24 @@ export default function VolunteerSignupScreen() {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        // alert(`Registered as ${user.email}`);
+        alert(`Registered as ${user.email}`);
+        delete volunteerFormData.password;
+        delete volunteerFormData.password_again;
+        addDoc(volunteerCollection, volunteerFormData)
+          .then((docRef) => {
+            getVolunteerList();
+            console.log("Document written with ID: ", docRef.id);
+          })
+          .catch((e) => {
+            alert(`${e}`);
+            console.error("Error adding document: ", e);
+          });
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
         alert(`${errorCode}, ${errorMessage}`);
-      });
-
-    addDoc(volunteerCollection, volunteerFormData)
-      .then((docRef) => {
-        getVolunteerList();
-        console.log("Document written with ID: ", docRef.id);
-      })
-      .catch((e) => {
-        console.error("Error adding document: ", e);
       });
   };
 
