@@ -13,6 +13,7 @@ import { auth } from "./firebase";
 import { useNavigation } from "@react-navigation/native";
 
 const db = getFirestore();
+
 const test = () => {
   const [user, setUser] = useState(null);
   useEffect(() => {
@@ -24,30 +25,22 @@ const test = () => {
   }, []);
 };
 
-
-export const registerOnEvent = async (event) => {
+export const registerOnEvent = (event) => {
   const authUser = auth.currentUser;
   const UserInformationOnRegisterTestEvent = {
     email: authUser.email,
     userId: authUser.uid,
   };
-  console.log(auth);
-  try {
-    const ref = doc(db, "test_events", event.event_id);
-    await updateDoc(ref, {
-      volunteers: arrayUnion(UserInformationOnRegisterTestEvent),
+  const ref = doc(db, "test_events", event.event_id);
+
+  updateDoc(ref, {
+    volunteers: arrayUnion(UserInformationOnRegisterTestEvent),
+  })
+    .then(() => {
+      alert(`${authUser.email} registered successfully.`);
+    })
+    .catch((e) => {
+      console.error("Error updating document:", e);
     });
-
-    console.log("Document updated successfully");
-  } catch (e) {
-    console.error("Error updating document:", e);
-  }
 };
-
-
-
-
-export const updateEvent = async (event) => {
-console.log("update event ");
-
-};
+//increment the number of people in the event
