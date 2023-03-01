@@ -10,7 +10,7 @@ import {
 import React, { useState, useEffect } from "react";
 import { collection, addDoc, db, getDocs, auth } from "../firebase/firebase";
 import { useNavigation } from "@react-navigation/native";
-import { NavBarRegistration } from "../components/CharitySignUpScreen/NavBarRegistration";
+import { NavBarRegistration } from "../components/NavBarRegistration";
 
 export default function SignupScreen() {
   const [charities, setCharities] = useState([]);

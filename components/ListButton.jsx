@@ -82,7 +82,7 @@ export default function List() {
   }, [showList]);
 
   return (
-    <View>
+    <View className="flex justify-between h-full w-full flex-1">
       <Modal
         animationType="slide"
         visible={showList}
@@ -119,9 +119,9 @@ export default function List() {
         </View>
       </Modal>
 
-      <View className="flex-row bg-sky-300 min-w-full rounded-t-3xl">
-        <TouchableOpacity onPress={toggleEventList} className="pb-8 min-w-full">
-          <Text className="text-2xl text-center">List</Text>
+      <View className=" bg-sky-500 min-w-full rounded-3xl absolute left-3 bottom-1 w-11/12">
+        <TouchableOpacity onPress={toggleEventList}>
+          <Text className="text-2xl text-center text-white font-bold">Event List</Text>
         </TouchableOpacity>
       </View>
       {showEventDetails && (
