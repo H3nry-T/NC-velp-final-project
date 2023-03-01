@@ -125,7 +125,7 @@ export default function List() {
         </View>
       </Modal>
 
-      <View className=" bg-cyan-800 min-w-full rounded-3xl absolute left-3 bottom-3 w-11/12">
+      <View className=" bg-cyan-800 min-w-full rounded-xl py-2 absolute left-3 bottom-3 w-11/12">
         <TouchableOpacity onPress={toggleEventList}>
           <Text className="text-2xl text-center text-white font-bold">
             Event List
