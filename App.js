@@ -39,6 +39,7 @@ export default function App() {
                         options={{
                             headerShadowVisible: false,
                             headerTransparent: true,
+                            
                         }}
                     />
                     <Stack.Screen name="Map" component={Map} />
@@ -47,6 +48,9 @@ export default function App() {
                         component={AddEventScreen}
                         options={{
                             headerStyle: { backgroundColor: "#00ACC1" },
+                            headerTitleStyle: { color: "#ffffff" },
+                            headerTintColor: "#ffffff"
+
                         }}
                     />
                     <Stack.Screen
@@ -54,8 +58,9 @@ export default function App() {
                         component={SignupScreen}
                         options={{
                             headerBackTitleVisible: false,
-                            headerStyle: { backgroundColor: "#00ACC1" },
+                            headerStyle: { backgroundColor: "#00ACC1"},
                             headerTitleStyle: { color: "#ffffff" },
+                            headerTintColor: "#ffffff"
                         }}
                     />
                     <Stack.Screen
@@ -65,6 +70,8 @@ export default function App() {
                             headerBackTitleVisible: false,
                             headerStyle: { backgroundColor: "#00ACC1" },
                             headerTitleStyle: { color: "#ffffff" },
+                            headerTintColor: "#ffffff"
+                            
                         }}
                     />
                 </Stack.Navigator>
