@@ -158,7 +158,7 @@ const AddEventScreen = () => {
         onChange={handleUpdateFormDataOnClientSide("website")}
       />
       <TouchableOpacity
-        className="self-center p-2 rounded-full bg-cyan-800 w-1/3 m-5"
+        className="self-center p-2 rounded-xl bg-cyan-800 w-1/3 m-5 py-2"
         onPress={() => submitForm()}
       >
         <Text className="text-center font-extrabold text-white text-2l">

@@ -39,7 +39,7 @@ export default function App() {
             options={{ headerShadowVisible: false, headerTransparent: true, }}
           />
           <Stack.Screen name="Map" component={Map} />
-          <Stack.Screen name="AddEvent" component={AddEventScreen} options={{headerStyle: {backgroundColor: "#00ACC1", color: "white"}}}/>
+          <Stack.Screen name="AddEvent" component={AddEventScreen} options={{headerStyle: {backgroundColor: "#00ACC1"}}}/>
           <Stack.Screen
             name="Charity Signup Form"
             component={SignupScreen}
