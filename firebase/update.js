@@ -10,6 +10,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { auth } from "./firebase";
+import { useNavigation } from "@react-navigation/native";
 
 const db = getFirestore();
 
@@ -55,4 +56,3 @@ export const registerOnEvent = (event) => {
       console.error("Error updating document:", e);
     });
 };
-

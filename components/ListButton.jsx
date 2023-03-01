@@ -15,6 +15,8 @@ import { useNavigation } from "@react-navigation/native";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import { auth } from "../firebase/firebase";
+import { onSnapshot } from "firebase/firestore";
+import { testEventsCollection } from "../firebase/read";
 
 export default function List() {
   const [showList, setShowList] = useState(false);
@@ -26,6 +28,34 @@ export default function List() {
 
   const [isCharity, setIsCharity] = useState(false);
   const [charities, setCharities] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(testEventsCollection, (snapshot) => {
+      const results = snapshot.docs.map((doc) => {
+        return {
+          ...doc.data(),
+          event_id: doc.id,
+        };
+      });
+      setTestEventsData(results);
+    });
+    //clean up function
+    return unsubscribe;
+  }, [showList]);
+
+  //add another dependency not testEventsData.
+  useEffect(() => {
+    buildEventCards();
+  }, [testEventsData]);
+
+  // useEffect(() => {
+  //   async function getData() {
+  //     const results = await getTestEvents();
+  //     setTestEventsData(results);
+  //     buildEventCards();
+  //   }
+  //   getData();
+  // }, [showList]);
 
   useEffect(() => {
     const getCharityList = async () => {
@@ -71,15 +101,6 @@ export default function List() {
     });
     setTestEventCards(buildCards);
   }
-
-  useEffect(() => {
-    async function getData() {
-      const results = await getTestEvents();
-      setTestEventsData(results);
-      buildEventCards();
-    }
-    getData();
-  }, [showList]);
 
   return (
     <View className="flex justify-between h-full w-full flex-1 bg-sky-300">
