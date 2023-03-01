@@ -16,27 +16,16 @@ import ButtonWithOverlay from "../components/ButtonWithOverlay";
 import { getEventLocations, findLatAndLong } from "../firebase/read";
 import ListButton from "../components/ListButton";
 import { EventDetails } from "../components/EventDetails";
-import * as Location from "expo-location"
+import * as Location from "expo-location";
 
 const HomeScreen = () => {
   const { replace, setOptions } = useNavigation();
-  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [events, setEvents] = useState([]);
   const [showEventDetails, setShowEventDetails] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [defaultLocation, setDefaultLocation] = useState({
-    latitude: 51.508001,
-    longitude: -0.12754,
-  });
   const [currentLocation, setCurrentLocation] = useState({
     latitude: null,
     longitude: null,
-  })
-  const [region, setRegion] = useState({
-    latitude: defaultLocation.latitude,
-    longitude: defaultLocation.longitude,
-    latitudeDelta: 0.05,
-    longitudeDelta: 0.05,
   });
 
   React.useLayoutEffect(() => {
@@ -73,48 +62,47 @@ const HomeScreen = () => {
 
   useEffect(() => {
     (async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-    console.log("Permission to access location was denied");
-    return;
-    }
-    let location = await Location.getCurrentPositionAsync({});
-    console.log(location.coords);
-    setCurrentLocation({
-    latitude: location.coords.latitude,
-    longitude: location.coords.longitude
-    })
-    setRegion({
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-      latitudeDelta: 0.05,
-      longitudeDelta: 0.05,
-    });
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Permission to access location was denied");
+        return;
+      }
+      let location = await Location.getCurrentPositionAsync({});
+      setCurrentLocation({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
     })();
-    }, []);
+  }, []);
 
-    console.log(currentLocation.latitude, currentLocation.longitude)
   return (
     <SafeAreaView className="flex justify-center items-center flex-1">
       <StatusBar hidden />
       <MapView
         style={styles.map}
         initialRegion={{
-          latitude: currentLocation.latitude || defaultLocation.latitude,
-          longitude: currentLocation.longitude || defaultLocation.longitude,
+          latitude: 51.508001,
+          longitude: -0.12754,
           latitudeDelta: 0.05,
           longitudeDelta: 0.05,
         }}
         showsUserLocation={true}
-        showsMyLocationButton={true}
       >
         <Marker
           coordinate={{
-            latitude: currentLocation.latitude || defaultLocation.latitude,
-            longitude: currentLocation.latitude || defaultLocation.latitude
+            latitude: 51.508001,
+            longitude: -0.12754,
           }}
           pinColor="red"
-          title="Start location"
+          title="Default location"
+        ></Marker>
+        <Marker
+          coordinate={{
+            latitude: currentLocation.latitude || 0,
+            longitude: currentLocation.longitude || 0,
+          }}
+          pinColor="indigo"
+          title="Current location"
         ></Marker>
         {events?.map((event) => {
           return (
@@ -175,7 +163,6 @@ const styles = StyleSheet.create({
   map: {
     width: "100%",
     height: "100%",
-    marginTop: 200
   },
   name: {
     fontSize: 10,
