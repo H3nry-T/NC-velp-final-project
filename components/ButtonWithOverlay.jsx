@@ -40,27 +40,27 @@ const ButtonWithOverlay = () => {
       <StatusBar hidden />
       <Overlay isVisible={isOverlayVisible} onClose={handleCloseOverlay} />
 
-    <View className="flex-row">
+    <View className="flex-row justify-evenly">
 
       {!isOverlayVisible && (
         <TouchableOpacity
         onPress={handleOpenOverlay}
-        className="rounded-full w-20 h-20 my-1 ml-1"
+        className="rounded-sm my-1 ml-1"
         style={styles.transparentBG}
         >
-          <Text className="bg-sky-500 px-5 py-8 rounded-full  font-bold text-white">
+          <Text className="bg-sky-500 px-5 py-4 rounded-xl font-bold text-white">
             MENU
           </Text>
         </TouchableOpacity>
       )}
       {!isOverlayVisible && (
-        <Text className="bg-sky-200 flex-0 px-2 py-1 w-auto h-8 rounded-2xl my-1">
+        <Text className="bg-sky-200 px-2 py-1 w-auto h-8 rounded-2xl my-1 ml-14">
           {userTime}
         </Text>
       )}
       </View>
       {/* <View className='absolute left-0 right-0 top-0'> */}
-       <Image source={require('../assets/logo1.png')} className='w-20 h-20 absolute right-3 top-1 bg-sky-200 rounded-xl'/>
+       <Image source={require('../assets/logo1.png')} className='w-20 h-20 absolute right-3 top-1'/>
         {/* <Text className='absolute right-10 top-2 text-3xl'>Velp</Text> */}
       {/* </View> */}
     </View>
