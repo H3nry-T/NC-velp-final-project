@@ -53,11 +53,7 @@ const ButtonWithOverlay = () => {
           </Text>
         </TouchableOpacity>
       )}
-      {!isOverlayVisible && (
-        <Text className="bg-cyan-500 px-2 py-1 w-auto h-8 rounded-2xl my-1 ml-14 text-white font-bold">
-          {userTime}
-        </Text>
-      )}
+      
       </View>
       {/* <View className='absolute left-0 right-0 top-0'> */}
        <Image source={require('../assets/logo1.png')} className='w-20 h-20 absolute right-3 top-1'/>
