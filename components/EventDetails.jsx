@@ -1,4 +1,11 @@
-import { Text, TouchableOpacity, View, Modal, Pressable } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  Modal,
+  Pressable,
+  FlatList,
+} from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { registerOnEvent } from "../firebase/update";
 import { useEffect, useState } from "react";
@@ -39,7 +46,9 @@ export function EventDetails({ event, onClose }) {
       <View className=" bg-cyan-800 flex-1 justify-center items-center h-full w-full">
         <View className="w-11/12 max-h-[80%] bg-white flex-1 rounded-md shadow-lg p-1">
           <TouchableOpacity onPress={onClose}>
-            <Text className="text-right pr-2 pt-1 text-2xl text-gray-500">X</Text>
+            <Text className="text-right pr-2 pt-1 text-2xl text-gray-500">
+              X
+            </Text>
           </TouchableOpacity>
           <View className="justify-evenly items-evenly flex-1 p-3">
             <View>
@@ -54,10 +63,13 @@ export function EventDetails({ event, onClose }) {
                 {formatTimeStamp(event)}
               </Text>
               <Text className="pt-4 ml-3 pl-1">
-                <Text className="text-cyan-800 font-extrabold">Location:</Text> {event.address}
+                <Text className="text-cyan-800 font-extrabold">Location:</Text>{" "}
+                {event.address}
               </Text>
               <Text className="pt-4 ml-3 pl-1">
-                <Text className="text-cyan-800 font-extrabold">Organised by:</Text>{" "}
+                <Text className="text-cyan-800 font-extrabold">
+                  Organised by:
+                </Text>{" "}
                 {event.organisation_name.substring(0, 45)}
               </Text>
             </View>
@@ -77,6 +89,23 @@ export function EventDetails({ event, onClose }) {
                     <Entypo name="heart" size={54} color="#dc2626" />
                   </TouchableOpacity>
                 </View>
+              </View>
+            )}
+
+            {!isVolunteer && (
+              <View className="ml-4">
+                <Text className="font-extrabold text-cyan-800">
+                  Volunteers:
+                </Text>
+                <FlatList
+                  data={volunteers}
+                  renderItem={({ item }) => {
+                    return <Text>{item.email}</Text>;
+                  }}
+                  keyExtractor={(item) => {
+                    return item.email;
+                  }}
+                />
               </View>
             )}
           </View>
