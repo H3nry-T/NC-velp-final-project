@@ -52,11 +52,13 @@ export function EventDetails({ event, onClose }) {
               Organised by: {event.organisation_name.substring(0, 45)}
             </Text>
 
+              {isVolunteer && (
             <View className="flex-row items-center">
               <TouchableOpacity
                 className="flex-row justify-center w-7/12 mt-10 ml-5 bg-sky-200 p-4 rounded-full"
                 onPress={() => registerOnEvent(event)}
               >
+
                 <Text className="text-lg">I want to help!</Text>
               </TouchableOpacity>
               <View className="ml-7 mt-5">
@@ -65,8 +67,9 @@ export function EventDetails({ event, onClose }) {
                 </TouchableOpacity>
               </View>
             </View>
+              )}
           </View>
-
+            {!isVolunteer && (
           <View className="flex-row items-center">
             <TouchableOpacity
               className="flex-row justify-center w-7/12 mt-10 ml-5 bg-sky-200 p-4 rounded-full"
@@ -76,20 +79,23 @@ export function EventDetails({ event, onClose }) {
                 })
               }
             >
-              <Text className="text-lg">Delete Event</Text>
+                <Text className="text-lg">Delete Event</Text>
             </TouchableOpacity>
           </View>
+            )}
 
-          <View className="flex-row items-center">
+            {!isVolunteer && (
+              <View className="flex-row items-center">
             <TouchableOpacity
               className="flex-row justify-center w-7/12 mt-10 ml-5 bg-sky-200 p-4 rounded-full"
               onPress={() => updateEvent(event)}
-            >
+              >
               <Text className="text-lg">Update Event</Text>
             </TouchableOpacity>
           </View>
+            )}
         </View>
-      </View>
+        </View>
     </Modal>
   );
 }
