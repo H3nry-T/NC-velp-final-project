@@ -33,11 +33,11 @@ export default function EventCard({
   }
 
   return (
-    <View key={event.event_id}>
-      <View className=" w-full my-1 bg-sky-200 items-start pl-4 rounded-full py-2">
+    <View key={event.event_id} className="flex-1 items-center">
+      <View className=" w-[95%] my-1 bg-cyan-800 justify-center pl-4 rounded-xl py-2">
         <TouchableOpacity onPress={handlePress}>
-          <Text className="text-2xl">{event.event_name}</Text>
-          <Text className="pt-1">When: {formatTimeStamp(event)}</Text>
+          <Text className="text-2xl text-white">{event.event_name}</Text>
+          <Text className="pt-1 text-white">When: {formatTimeStamp(event)}</Text>
         </TouchableOpacity>
       </View>
     </View>

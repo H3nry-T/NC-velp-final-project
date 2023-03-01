@@ -36,7 +36,7 @@ export default function App() {
           <Stack.Screen
             name="Home"
             component={HomeScreen}
-            options={{ headerShadowVisible: false, headerTransparent: true }}
+            options={{ headerShadowVisible: false, headerTransparent: true, }}
           />
           <Stack.Screen name="Map" component={Map} />
           <Stack.Screen name="AddEvent" component={AddEventScreen} />
