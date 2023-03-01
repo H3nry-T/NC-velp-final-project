@@ -103,7 +103,6 @@ const AddEventScreen = () => {
   return (
     <ScrollView className="flex-1 bg-sky-100">
       <FormInputFieldGeneric
-        className=""
         label={"Address"}
         formDataField={formData.address}
         onChange={handleUpdateFormDataOnClientSide("address")}
