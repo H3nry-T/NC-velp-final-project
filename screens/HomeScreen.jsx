@@ -86,7 +86,6 @@ const HomeScreen = () => {
           latitudeDelta: 0.05,
           longitudeDelta: 0.05,
         }}
-        showsUserLocation={true}
       >
         <Marker
           coordinate={{
