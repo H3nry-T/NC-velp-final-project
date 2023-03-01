@@ -9,14 +9,12 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { collection, addDoc, db, getDocs, auth } from "../firebase/firebase";
-import { getCharities } from "../utils/api";
 import { useNavigation } from "@react-navigation/native";
 import { NavBarRegistration } from "../components/CharitySignUpScreen/NavBarRegistration";
 
 export default function SignupScreen() {
   const [charities, setCharities] = useState([]);
-  const [charityFromApi, setCharityFromApi] = useState({});
-
+  const [charityFromApi, setCharityFromApi] = useState({})
   const [charityFormData, setCharityFormData] = useState({
     reg_charity_number: "",
     charity_name: "",
@@ -30,18 +28,6 @@ export default function SignupScreen() {
   const charityCollection = collection(db, "test_charity");
 
   const navigation = useNavigation();
-
-  useEffect(() => {
-    if (charityFormData.reg_charity_number) {
-      getCharities(charityFormData.reg_charity_number)
-        .then((charities) => {
-          setCharityFromApi(charities);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [charityFormData.reg_charity_number]);
 
   const getCharityList = () => {
     getDocs(charityCollection)
@@ -175,6 +161,7 @@ export default function SignupScreen() {
           onPress={() => {
             handleSubmit(
               charityFromApi,
+              setCharityFromApi,
               charities,
               charityCollection,
               getCharityList,
