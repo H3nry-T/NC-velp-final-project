@@ -24,6 +24,7 @@ export async function getEventLocations() {
 }
 
 export const findLatAndLong = async (postcode) => {
+
   try {
 
     const latAndLongData = await axios.get(
