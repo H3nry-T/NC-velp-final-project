@@ -31,12 +31,12 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyA_3Ucha-eEIEgAfCbXM2yA7Nr5UmVk9Wg",
-  authDomain: "fir-auth-7678a.firebaseapp.com",
-  projectId: "fir-auth-7678a",
-  storageBucket: "fir-auth-7678a.appspot.com",
-  messagingSenderId: "534706956586",
-  appId: "1:534706956586:web:d094759d5e094bec939653",
+  apiKey: "AIzaSyB165I7TZpXfWoCKQVXDIzQ3LHHoIC7UF0",
+  authDomain: "test-d9699.firebaseapp.com",
+  projectId: "test-d9699",
+  storageBucket: "test-d9699.appspot.com",
+  messagingSenderId: "959354945276",
+  appId: "1:959354945276:web:a88d20d257b36e6713e179"
 };
 /*========================= */
 /*================= */
