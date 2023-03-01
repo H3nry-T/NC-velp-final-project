@@ -16,7 +16,7 @@ export function errorCheckOnSubmit(
             setCharityFromApi(charities);
         })
         .catch((err) => {
-            console.log(err);
+            console.error(err);
         });
 
     const requiredFields = [
@@ -124,7 +124,7 @@ export function errorCheckOnSubmit(
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            console.log(errorCode, errorMessage);
+            console.error(errorCode, errorMessage);
             alert(`${errorCode}, ${errorMessage}`);
         });
     addDoc(charityCollection, charityFromApi)

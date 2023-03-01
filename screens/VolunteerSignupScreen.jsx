@@ -186,7 +186,7 @@ export default function VolunteerSignupScreen() {
         addDoc(volunteerCollection, volunteerFormData)
           .then((docRef) => {
             getVolunteerList();
-            console.log("Document written with ID: ", docRef.id);
+            //console.log("Document written with ID: ", docRef.id);
           })
           .catch((e) => {
             alert(`${e}`);
@@ -196,7 +196,7 @@ export default function VolunteerSignupScreen() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        console.error(errorCode, errorMessage);
         alert(`${errorCode}, ${errorMessage}`);
       });
   };
