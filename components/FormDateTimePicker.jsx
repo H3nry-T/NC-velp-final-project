@@ -30,7 +30,7 @@ export function FormDateTimePicker({ label, formDataField, onChange }) {
 
   return (
     <>
-      <Text className="ml-6 mb-1">
+      <Text className="ml-6 mb-1 font-bold">
         {label} {text}
       </Text>
       <View className="flex-row flex-start justify-center w-full">

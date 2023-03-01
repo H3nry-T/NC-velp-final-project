@@ -5,7 +5,7 @@ export function NavBarRegistration({ navigation }) {
   return (
     <View className="flex flex-row h-10">
       <TouchableOpacity className="w-1/2">
-        <View className="flex-1 flex justify-center items-center border-b-4 border-blue-600 transform scale-105">
+        <View className="flex-1 flex justify-center items-center border-b-4 border-cyan-800 transform scale-105">
           <Text className="font-bold">Charity</Text>
         </View>
       </TouchableOpacity>
