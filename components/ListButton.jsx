@@ -38,11 +38,15 @@ export default function List() {
         };
       });
       setTestEventsData(results);
-      buildEventCards();
     });
     //clean up function
     return unsubscribe;
-  }, [showList, testEventsData]);
+  }, [showList]);
+
+  //add another dependency not testEventsData.
+  useEffect(() => {
+    buildEventCards();
+  }, [testEventsData]);
 
   // useEffect(() => {
   //   async function getData() {
