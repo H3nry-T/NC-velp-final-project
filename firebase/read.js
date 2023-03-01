@@ -38,6 +38,7 @@ export const findLatAndLong = async (postcode) => {
 };
 
 export const getTestEvents = async () => {
+  console.log(1)
   try {
     const snapshot = await getDocs(testEventsCollection);
     const testEvents = [];

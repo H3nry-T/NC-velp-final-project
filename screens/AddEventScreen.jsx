@@ -10,18 +10,18 @@ import { auth } from "../firebase/firebase";
 const AddEventScreen = () => {
   //Temp data inside to test, prior to getting data from actual form
   const [formData, setFormData] = useState({
-    address: "90 loco way",
+    address: "",
     charity_id: 0,
     date_time: new Timestamp(),
-    description: "help lay out the tracks",
-    email: "TrainStation@example.com",
-    event_name: "Railway construction 👷‍♂️",
-    organisation_name: "line foster & co",
-    phone: "62124151",
-    postcode: "TS10 2DZ",
+    description: "",
+    email: "",
+    event_name: "",
+    organisation_name: "",
+    phone: "",
+    postcode: "",
     volunteers: [],
     volunteer_needed: 0,
-    website: "https://TrainStation.com/volunteering",
+    website: "",
   });
   const navigation = useNavigation();
 
@@ -101,19 +101,19 @@ const AddEventScreen = () => {
   }
 
   return (
-    <ScrollView className="flex-1">
+    <ScrollView className="flex-1 bg-sky-100">
       <FormInputFieldGeneric
-        label={"address"}
+        label={"Address"}
         formDataField={formData.address}
         onChange={handleUpdateFormDataOnClientSide("address")}
       />
       <FormInputFieldGeneric
-        label={"postcode"}
+        label={"Postcode"}
         formDataField={formData.postcode}
         onChange={handleUpdateFormDataOnClientSide("postcode")}
       />
       <FormInputFieldGeneric
-        label={"charity id"}
+        label={"Charity ID"}
         formDataField={formData.charity_id}
         onChange={handleUpdateFormDataOnClientSide("charity_id")}
       />
@@ -123,42 +123,42 @@ const AddEventScreen = () => {
         onChange={handleUpdateFormDataOnClientSide("date_time")}
       />
       <FormInputFieldGeneric
-        label={"description"}
+        label={"Description"}
         formDataField={formData.description}
         onChange={handleUpdateFormDataOnClientSide("description")}
       />
       <FormInputFieldGeneric
-        label={"email"}
+        label={"Email"}
         formDataField={formData.email}
         onChange={handleUpdateFormDataOnClientSide("email")}
       />
       <FormInputFieldGeneric
-        label={"event name"}
+        label={"Event Name"}
         formDataField={formData.event_name}
         onChange={handleUpdateFormDataOnClientSide("event_name")}
       />
       <FormInputFieldGeneric
-        label={"phone"}
+        label={"Phone"}
         formDataField={formData.phone}
         onChange={handleUpdateFormDataOnClientSide("phone")}
       />
       <FormInputFieldGeneric
-        label={"organisation name"}
+        label={"Organisation Name"}
         formDataField={formData.organisation_name}
         onChange={handleUpdateFormDataOnClientSide("organisation_name")}
       />
       <FormInputFieldGeneric
-        label={"number of volunteers needed"}
+        label={"Number Of Volunteers Needed"}
         formDataField={formData.volunteer_needed}
         onChange={handleUpdateFormDataOnClientSide("volunteer_needed")}
       />
       <FormInputFieldGeneric
-        label={"website url"}
+        label={"Website URL"}
         formDataField={formData.website}
         onChange={handleUpdateFormDataOnClientSide("website")}
       />
       <TouchableOpacity
-        className="self-center p-2 rounded-full bg-sky-400 w-1/3 m-5"
+        className="self-center p-2 rounded-xl bg-cyan-800 w-1/3 m-5 py-2"
         onPress={() => submitForm()}
       >
         <Text className="text-center font-extrabold text-white text-2l">

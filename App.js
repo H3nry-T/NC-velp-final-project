@@ -42,7 +42,13 @@ export default function App() {
                         }}
                     />
                     <Stack.Screen name="Map" component={Map} />
-                    <Stack.Screen name="AddEvent" component={AddEventScreen} />
+                    <Stack.Screen
+                        name="AddEvent"
+                        component={AddEventScreen}
+                        options={{
+                            headerStyle: { backgroundColor: "#00ACC1" },
+                        }}
+                    />
                     <Stack.Screen
                         name="Charity Signup Form"
                         component={SignupScreen}
