@@ -13,6 +13,7 @@ const dataBase = getFirestore();
 const testEventsCollection = collection(dataBase, "test_events");
 
 export async function getEventLocations() {
+  console.log(1)
   let locations = [];
   const querySnapshot = await getDocs(collection(db, "test_events"));
   querySnapshot.forEach((doc) => {
@@ -24,6 +25,7 @@ export async function getEventLocations() {
 }
 
 export const findLatAndLong = async (postcode) => {
+
   try {
 
     const latAndLongData = await axios.get(
@@ -37,6 +39,7 @@ export const findLatAndLong = async (postcode) => {
 };
 
 export const getTestEvents = async () => {
+  console.log(2)
   try {
     const snapshot = await getDocs(testEventsCollection);
     const testEvents = [];

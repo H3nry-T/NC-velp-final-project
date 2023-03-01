@@ -14,6 +14,7 @@ export function EventDetails({ event, onClose }) {
   useEffect(() => {
     const getVolunteerList = async () => {
       try {
+        console.log(3)
         const querySnapshot = await getDocs(collection(db, "test_volunteer"));
         const volunteerListArray = querySnapshot.docs.map((doc) => ({
           ...doc.data(),

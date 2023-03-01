@@ -30,6 +30,7 @@ export default function List() {
   useEffect(() => {
     const getCharityList = async () => {
       try {
+        console.log(3)
         const querySnapshot = await getDocs(collection(db, "test_charity"));
         const charityListArray = querySnapshot.docs.map((doc) => ({
           ...doc.data(),

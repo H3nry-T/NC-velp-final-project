@@ -203,6 +203,7 @@ export default function VolunteerSignupScreen() {
   };
 
   const getVolunteerList = () => {
+    console.log(5)
     getDocs(volunteerCollection)
       .then((querySnapshot) => {
         return querySnapshot.docs.map((doc) => ({
@@ -230,7 +231,7 @@ export default function VolunteerSignupScreen() {
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity className="w-1/2">
-                    <View className="flex-1 flex justify-center items-center border-b-4 border-blue-500 border-blue-600 transform scale-105">
+                    <View className="flex-1 flex justify-center items-center border-b-4 border-blue-600 transform scale-105">
                         <Text className="font-bold">Volunteer</Text>
                     </View>
                 </TouchableOpacity>

@@ -20,4 +20,5 @@ firestore.rules
 .firebaserc
 storage.rules
 index.html
+firebase/firebase.js
 
