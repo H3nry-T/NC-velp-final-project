@@ -48,13 +48,13 @@ const ButtonWithOverlay = () => {
         className="rounded-sm my-1 ml-1"
         style={styles.transparentBG}
         >
-          <Text className="bg-sky-500 px-5 py-4 rounded-xl font-bold text-white">
+          <Text className="bg-cyan-800 px-5 py-4 rounded-xl font-bold text-white">
             MENU
           </Text>
         </TouchableOpacity>
       )}
       {!isOverlayVisible && (
-        <Text className="bg-sky-200 px-2 py-1 w-auto h-8 rounded-2xl my-1 ml-14">
+        <Text className="bg-cyan-500 px-2 py-1 w-auto h-8 rounded-2xl my-1 ml-14 text-white font-bold">
           {userTime}
         </Text>
       )}

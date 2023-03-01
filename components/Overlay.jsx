@@ -28,7 +28,7 @@ const Overlay = ({ isVisible, message, onClose }) => {
         <SignoutButton replace={replace} />
         <TouchableOpacity
           onPress={onClose}
-          className="bg-sky-800 rounded-full w-20 h-20 p-2 items-center justify-center mt-10"
+          className="bg-sky-800 rounded-full w-10/12 h-10 p-2 items-center justify-center mt-5"
         >
           <Text className="text-center text-white">Close</Text>
         </TouchableOpacity>
