@@ -82,12 +82,12 @@ export default function List() {
   }, [showList]);
 
   return (
-    <View>
+    <View className="width-full height-full">
       <Modal
         animationType="slide"
         visible={showList}
         presentationStyle="overFullScreen"
-        className="flex min-h-full"
+        className="flex height-full width-full"
       >
         <View className="px-10 py-3 bg-sky-300">
           <Text className="text-center mt-10">Event List</Text>
