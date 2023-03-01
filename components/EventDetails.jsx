@@ -98,7 +98,7 @@ export function EventDetails({ event, onClose }) {
                   Volunteers:
                 </Text>
                 <FlatList
-                  data={volunteers}
+                  data={event.volunteers}
                   renderItem={({ item }) => {
                     return <Text>{item.email}</Text>;
                   }}
