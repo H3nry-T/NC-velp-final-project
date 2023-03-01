@@ -24,8 +24,8 @@ const HomeScreen = () => {
   const [showEventDetails, setShowEventDetails] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [currentLocation, setCurrentLocation] = useState({
-    latitude: null,
-    longitude: null,
+    latitude: 51.508001,
+    longitude: -0.12754,
   });
 
   React.useLayoutEffect(() => {
@@ -81,8 +81,8 @@ const HomeScreen = () => {
       <MapView
         style={styles.map}
         initialRegion={{
-          latitude: 51.508001,
-          longitude: -0.12754,
+          latitude: currentLocation.latitude,
+          longitude: currentLocation.longitude,
           latitudeDelta: 0.05,
           longitudeDelta: 0.05,
         }}
