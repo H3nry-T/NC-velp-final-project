@@ -82,17 +82,17 @@ export default function List() {
   }, [showList]);
 
   return (
-    <View className="flex justify-between h-full w-full flex-1 bg-sky-300">
+    <View className="flex justify-between h-full w-full flex-1 bg-sky-200">
       <Modal
         animationType="slide"
         visible={showList}
         presentationStyle="overFullScreen"
         // style={{color: 'blue'}}
-        className="flex height-full width-full bg-sky-300"
+        className="flex height-full width-full bg-sky-200"
         statusBarTranslucent
       >
         <View className="bg-sky-100 flex-1">
-          <View className="px-10 py-3 bg-sky-300">
+          <View className="px-10 py-3 bg-cyan-500">
             <Text className="text-center text-3xl pt-2 font-bold text-white">
               Event List
             </Text>
