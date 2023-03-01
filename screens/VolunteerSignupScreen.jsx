@@ -168,7 +168,6 @@ export default function VolunteerSignupScreen() {
 
     // Check if realDate is 16 years or more after birthDate
     if (differenceYears >= 16) {
-      console.log("date2 is 16 years or more after date1");
     } else {
       return alert(`You are younger than 16 years old`);
     }
@@ -203,7 +202,6 @@ export default function VolunteerSignupScreen() {
   };
 
   const getVolunteerList = () => {
-    console.log(5)
     getDocs(volunteerCollection)
       .then((querySnapshot) => {
         return querySnapshot.docs.map((doc) => ({

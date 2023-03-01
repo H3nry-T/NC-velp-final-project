@@ -30,7 +30,6 @@ export default function SignupScreen() {
   const navigation = useNavigation();
 
   const getCharityList = () => {
-    console.log(4)
     getDocs(charityCollection)
       .then((querySnapshot) => {
         return querySnapshot.docs.map((doc) => ({

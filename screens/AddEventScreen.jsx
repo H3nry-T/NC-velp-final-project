@@ -42,14 +42,12 @@ const AddEventScreen = () => {
           textFromUsersFormInput !== "" &&
           !isNaN(parseInt(textFromUsersFormInput))
         ) {
-          // console.log("parseInting the text input", textFromUsersFormInput);
           textFromUsersFormInput = parseInt(textFromUsersFormInput);
           setFormData({ ...formData, [fieldToUpdate]: textFromUsersFormInput });
         } else if (textFromUsersFormInput === "") {
           setFormData({ ...formData, [fieldToUpdate]: textFromUsersFormInput });
         }
       } else {
-        // console.log("Leave as a string" + textFromUsersFormInput);
         setFormData({ ...formData, [fieldToUpdate]: textFromUsersFormInput });
       }
     };
@@ -63,7 +61,6 @@ const AddEventScreen = () => {
   function submitForm() {
     /* need to add a check to make sure fields
      are valid & disable button + clear fields */
-    // console.log(formData);
     if (
       checkIfStringCannotBeInteger(formData["charity_id"]) ||
       checkIfStringCannotBeInteger(formData["volunteer_needed"])
