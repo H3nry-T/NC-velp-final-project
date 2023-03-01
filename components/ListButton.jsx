@@ -30,12 +30,28 @@ export default function List() {
   const [charities, setCharities] = useState([]);
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(testEventsCollection, () => {
+    const unsubscribe = onSnapshot(testEventsCollection, (snapshot) => {
+      const results = snapshot.docs.map((doc) => {
+        return {
+          ...doc.data(),
+          event_id: doc.id,
+        };
+      });
+      setTestEventsData(results);
       buildEventCards();
     });
+    //clean up function
+    return unsubscribe;
+  }, [showList, testEventsData]);
 
-    unsubscribe();
-  }, []);
+  // useEffect(() => {
+  //   async function getData() {
+  //     const results = await getTestEvents();
+  //     setTestEventsData(results);
+  //     buildEventCards();
+  //   }
+  //   getData();
+  // }, [showList]);
 
   useEffect(() => {
     const getCharityList = async () => {
@@ -81,15 +97,6 @@ export default function List() {
     });
     setTestEventCards(buildCards);
   }
-
-  useEffect(() => {
-    async function getData() {
-      const results = await getTestEvents();
-      setTestEventsData(results);
-      buildEventCards();
-    }
-    getData();
-  }, [showList]);
 
   return (
     <View>
