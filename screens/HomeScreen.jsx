@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   Modal,
   Image,
-  StatusBar
+  StatusBar,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -16,22 +16,25 @@ import ButtonWithOverlay from "../components/ButtonWithOverlay";
 import { getEventLocations, findLatAndLong } from "../firebase/read";
 import ListButton from "../components/ListButton";
 import { EventDetails } from "../components/EventDetails";
+import * as Location from "expo-location";
 
 const HomeScreen = () => {
   const { replace, setOptions } = useNavigation();
-  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [events, setEvents] = useState([]);
   const [showEventDetails, setShowEventDetails] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [currentLocation, setCurrentLocation] = useState({
+    latitude: null,
+    longitude: null,
+  });
 
   React.useLayoutEffect(() => {
     setOptions({
       header: () => (
         <View className="flex-row" style={styles.transparentBG}>
-            <ButtonWithOverlay />
+          <ButtonWithOverlay />
         </View>
       ),
-
     });
   }, [setOptions]);
 
@@ -57,18 +60,49 @@ const HomeScreen = () => {
     setShowEventDetails(true);
   };
 
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Permission to access location was denied");
+        return;
+      }
+      let location = await Location.getCurrentPositionAsync({});
+      setCurrentLocation({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+    })();
+  }, []);
+
   return (
     <SafeAreaView className="flex justify-center items-center flex-1">
       <StatusBar hidden />
       <MapView
         style={styles.map}
         initialRegion={{
-          latitude: 51.50572,
-          longitude: 0.1276,
+          latitude: 51.508001,
+          longitude: -0.12754,
           latitudeDelta: 0.05,
           longitudeDelta: 0.05,
         }}
       >
+        <Marker
+          coordinate={{
+            latitude: 51.508001,
+            longitude: -0.12754,
+          }}
+          pinColor="red"
+          title="Default location"
+        ></Marker>
+        <Marker
+          coordinate={{
+            latitude: currentLocation.latitude || 0,
+            longitude: currentLocation.longitude || 0,
+          }}
+          pinColor="indigo"
+          title="Current location"
+        ></Marker>
         {events?.map((event) => {
           return (
             <Marker
@@ -88,16 +122,6 @@ const HomeScreen = () => {
             </Marker>
           );
         })}
-
-        <Marker
-          coordinate={{
-            latitude: 51.50572,
-            longitude: 0.1276,
-          }}
-          pinColor="red"
-          title="Start location"
-          draggable={true}
-        ></Marker>
       </MapView>
       <ListButton />
       {showEventDetails && selectedEvent && (

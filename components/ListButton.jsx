@@ -44,7 +44,7 @@ export default function List() {
           setIsCharity(!!charity);
         }
       } catch (error) {
-        console.log("Error getting documents: ", error);
+        console.error("Error getting documents: ", error);
       }
     };
     getCharityList();
@@ -82,46 +82,54 @@ export default function List() {
   }, [showList]);
 
   return (
-    <View>
+    <View className="flex justify-between h-full w-full flex-1 bg-sky-200">
       <Modal
         animationType="slide"
         visible={showList}
         presentationStyle="overFullScreen"
-        className="flex min-h-full"
+        // style={{color: 'blue'}}
+        className="flex height-full width-full bg-sky-200"
+        statusBarTranslucent
       >
-        <View className="px-10 py-3 bg-sky-300">
-          <Text className="text-center mt-10">Event List</Text>
-        </View>
-        <ScrollView className="flex-1 ">
-          {testEventCards && testEventCards}
-        </ScrollView>
-        <View className=" flex-row justify-evenly items-center my-5">
-          {isCharity && (
+        <View className="bg-sky-100 flex-1">
+          <View className="px-10 py-3 bg-cyan-500">
+            <Text className="text-center text-3xl pt-2 font-bold text-white">
+              Event List
+            </Text>
+          </View>
+          <ScrollView className="flex-1 bg-sky-100">
+            {testEventCards && testEventCards}
+          </ScrollView>
+          <View className=" flex-row justify-evenly items-center my-5 bg-sky-100">
+            {isCharity && (
+              <TouchableOpacity className="text-center px-6 py-2 bg-cyan-800 rounded-xl">
+                <Text
+                  onPress={() => {
+                    return navigation.navigate("AddEvent");
+                  }}
+                  className="text-center text-white font-extrabold text-xl"
+                >
+                  Add Event
+                </Text>
+              </TouchableOpacity>
+            )}
             <TouchableOpacity className="text-center px-6 py-2 bg-cyan-800 rounded-xl">
               <Text
-                onPress={() => {
-                  return navigation.navigate("AddEvent");
-                }}
+                onPress={toggleEventList}
                 className="text-center text-white font-extrabold text-xl"
               >
-                Add Event
+                Close
               </Text>
             </TouchableOpacity>
-          )}
-          <TouchableOpacity className="text-center px-6 py-2 bg-cyan-800 rounded-xl">
-            <Text
-              onPress={toggleEventList}
-              className="text-center text-white font-extrabold text-xl"
-            >
-              Close
-            </Text>
-          </TouchableOpacity>
+          </View>
         </View>
       </Modal>
 
-      <View className="flex-row bg-sky-300 min-w-full rounded-t-3xl">
-        <TouchableOpacity onPress={toggleEventList} className="pb-8 min-w-full">
-          <Text className="text-2xl text-center">List</Text>
+      <View className=" bg-cyan-800 min-w-full rounded-xl py-2 absolute left-3 bottom-3 w-11/12">
+        <TouchableOpacity onPress={toggleEventList}>
+          <Text className="text-2xl text-center text-white font-bold">
+            Event List
+          </Text>
         </TouchableOpacity>
       </View>
       {showEventDetails && (

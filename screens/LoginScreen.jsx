@@ -31,12 +31,10 @@ const LoginScreen = () => {
   return (
     // <KeyboardAvoidingView behavior="padding">
     <SafeAreaView>
-     
       <View className=" justify-center items-center h-full w-full bg-sky-200">
-       
-      <Image
-        source={require("../assets/logo1.png")}
-        className="w-25 h-auto"
+        <Image
+          source={require("../assets/logo1.png")}
+          className="w-'50%', h-auto"
         />
         <LoginForm
           email={email}
@@ -48,56 +46,9 @@ const LoginScreen = () => {
         <LoginButton email={email} password={password} />
         <RegisterButton email={email} password={password} />
       </View>
-        
     </SafeAreaView>
     // </KeyboardAvoidingView>
   );
 };
 
 export default LoginScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    display: "flex",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  inputContainer: { width: "80%" },
-  input: {
-    backgroundColor: "white",
-    paddingHorizontal: 15,
-    paddingVertical: 7,
-    borderRadius: 10,
-    marginVertical: 3,
-  },
-  buttonContainer: {
-    width: "60%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 40,
-  },
-  button: {
-    width: "100%",
-    backgroundColor: "#00B8FF",
-    alignItems: "center",
-    borderRadius: 10,
-    padding: 15,
-  },
-  buttonOutline: {
-    backgroundColor: "white",
-    marginTop: 5,
-    borderColor: "#00B8FF",
-    borderWidth: 1,
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  buttonOutlineText: {
-    color: "#00B8FF",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-});
