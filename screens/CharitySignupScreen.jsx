@@ -42,7 +42,7 @@ export default function SignupScreen() {
                 setCharities(charityListArray);
             })
             .catch((error) => {
-                console.log("Error getting documents: ", error);
+                alert("Error getting documents: ", error);
             });
     };
 

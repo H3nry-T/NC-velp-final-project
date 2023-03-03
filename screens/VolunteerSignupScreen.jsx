@@ -215,7 +215,7 @@ export default function VolunteerSignupScreen() {
         setVolunteers(volunteerListArray);
       })
       .catch((error) => {
-        console.log("Error getting documents: ", error);
+        alert("Error getting documents: ", error);
       });
   };
 
